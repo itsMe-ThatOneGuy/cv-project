@@ -1,14 +1,17 @@
-import React, { Component } from "react";
+import { Component } from "react";
 
 class Employment extends Component {
 	constructor() {
 		super();
 		this.state = {
-			employer: "Test Employer",
-			title: "Full Stack Developer",
-			responsibilities: "Coding all the things",
-			startDate: "2020",
-			endDate: "2023",
+			job: {
+				employer: "Test Employer",
+				title: "Full Stack Developer",
+				responsibilities: "Coding all the things",
+				startDate: "2020",
+				endDate: "2023",
+			},
+			jobs: [],
 		};
 	}
 
