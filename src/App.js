@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+import Education from "./components/Education";
 import General from "./components/General";
 
 class App extends Component {
@@ -13,6 +14,7 @@ class App extends Component {
 			<div className="App">
 				{this.state.message}
 				<General />
+				<Education />
 			</div>
 		);
 	}
