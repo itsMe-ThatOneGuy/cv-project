@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+import General from "./components/General";
 
 class App extends Component {
 	constructor() {
@@ -8,7 +9,12 @@ class App extends Component {
 	}
 
 	render() {
-		return <div className="App">{this.state.message}</div>;
+		return (
+			<div className="App">
+				{this.state.message}
+				<General />
+			</div>
+		);
 	}
 }
 
