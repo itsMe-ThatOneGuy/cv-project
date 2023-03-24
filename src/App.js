@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import Education from "./components/Education";
 import Employment from "./components/Employment";
-import General from "./components/General";
+import Form from "./components/Form";
 
 class App extends Component {
 	constructor() {
@@ -13,8 +13,7 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				{this.state.message}
-				<General />
+				<Form />
 				<Education />
 				<Employment />
 			</div>
