@@ -28,20 +28,12 @@ class Form extends Component {
 	};
 
 	handelChange = (e) => {
-		if (e.target.id === "nameInput") {
-			this.setState({
-				name: e.target.value,
-			});
-		}
-		if (e.target.id === "phoneInput") {
-			this.setState({
-				phone: e.target.value,
-			});
-		}
-		if (e.target.id === "emailInput") {
-			this.setState({
-				email: e.target.value,
-			});
+		for (const [key] of Object.entries(this.state)) {
+			if (e.target.id === `${key}Input`) {
+				this.setState({
+					[key]: e.target.value,
+				});
+			}
 		}
 	};
 
