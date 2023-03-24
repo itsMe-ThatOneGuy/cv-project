@@ -1,7 +1,7 @@
 import { Component } from "react";
 import General from "./General";
 
-class Form extends Component {
+class GeneralForm extends Component {
 	constructor() {
 		super();
 
@@ -80,4 +80,4 @@ class Form extends Component {
 	}
 }
 
-export default Form;
+export default GeneralForm;
