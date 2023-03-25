@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
-import Education from "./components/Education";
-import Employment from "./components/Employment";
+import EducationForm from "./components/EducationForm";
+import EmploymentForm from "./components/EmploymentForm";
 import GeneralForm from "./components/GeneralForm";
 
 class App extends Component {
@@ -14,8 +14,8 @@ class App extends Component {
 		return (
 			<div className="App">
 				<GeneralForm />
-				<Education />
-				<Employment />
+				<EducationForm />
+				<EmploymentForm />
 			</div>
 		);
 	}
