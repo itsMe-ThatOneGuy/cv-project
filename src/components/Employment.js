@@ -1,29 +1,16 @@
 import { Component } from "react";
 
 class Employment extends Component {
-	constructor() {
-		super();
-		this.state = {
-			job: {
-				employer: "Test Employer",
-				title: "Full Stack Developer",
-				responsibilities: "Coding all the things",
-				startDate: "2020",
-				endDate: "2023",
-			},
-			jobs: [],
-		};
-	}
-
 	render() {
 		return (
 			<div>
 				<div>
-					<p>{this.state.employer}</p>
-					<p>Title: {this.state.title}</p>
-					<p>Responsibilities: {this.state.responsibilities}</p>
-					<p>Start Date: {this.state.startDate}</p>
-					<p>End Date: {this.state.endDate}</p>
+					<p>{this.props.info.employer}</p>
+					<p>Title: {this.props.info.title}</p>
+					<p>Responsibilities: {this.props.info.responsibilities}</p>
+					<p>Start Date: {this.props.info.startDate}</p>
+					<p>End Date: {this.props.info.endDate}</p>
+					<button onClick={this.props.func}>Edit</button>
 				</div>
 			</div>
 		);
