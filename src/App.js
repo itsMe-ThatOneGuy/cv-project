@@ -7,7 +7,6 @@ import GeneralForm from "./components/GeneralForm";
 class App extends Component {
 	constructor() {
 		super();
-		this.state = { message: "hello world!" };
 	}
 
 	render() {
