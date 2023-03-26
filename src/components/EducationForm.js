@@ -32,9 +32,36 @@ class EducationForm extends Component {
 		}
 	};
 
-	handelChange = (e) => {};
+	handelChange = (e) => {
+		for (const [key] of Object.entries(this.state.school)) {
+			if (e.target.id === `${key}Input`) {
+				this.setState((prevState) => ({
+					school: { ...prevState.school, [key]: e.target.value },
+				}));
+			}
+		}
+	};
 
-	onSubmitForm = (e) => {};
+	onSubmitForm = (e) => {
+		e.preventDefault();
+		const schools = this.state.schools.concat(this.state.school);
+		this.setState({
+			schools: schools,
+			school: {
+				id: 0,
+				schoolName: "",
+				degree: "",
+				startDate: "",
+				endDate: "",
+				edit: false,
+			},
+		});
+		console.log(this.state);
+	};
+
+	test = () => {
+		console.log(this.state);
+	};
 
 	render() {
 		return (
@@ -43,20 +70,23 @@ class EducationForm extends Component {
 					<label htmlFor="schoolNameInput">School:</label>
 					<input
 						onChange={this.handelChange}
+						name="schoolName"
 						//value={this.state.school}
 						type="text"
-						id="schoolInput"
+						id="schoolNameInput"
 					/>
 					<label htmlFor="degreeInput">Degree:</label>
 					<input
 						onChange={this.handelChange}
 						//value={this.state.degree}
+						name="degree"
 						type="text"
 						id="degreeInput"
 					/>
 					<label htmlFor="startDateInput">Start Date:</label>
 					<input
 						onChange={this.handelChange}
+						name="startDate"
 						//value={this.state.startDate}
 						type="text"
 						id="startDateInput"
@@ -65,11 +95,14 @@ class EducationForm extends Component {
 					<input
 						onChange={this.handelChange}
 						//value={this.state.endDate}
+						name="endDate"
 						type="text"
 						id="endDateInput"
 					/>
 					<button type="submit">Save</button>
+					<button onClick={this.test}>test</button>
 				</form>
+				<Education info={this.state} />
 			</div>
 		);
 	}
