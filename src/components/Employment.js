@@ -16,7 +16,7 @@ class Employment extends Component {
 								Edit
 							</button>
 							<button
-								onClick={this.props.deleteOnClick}
+								onClick={this.props.deleteOnclick}
 								id={`delete-${job.id}`}>
 								Delete
 							</button>
