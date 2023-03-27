@@ -158,14 +158,12 @@ class EducationForm extends Component {
 						<input
 							onChange={this.handelChange}
 							name="schoolName"
-							//value={this.state.school}
 							type="text"
 							id="schoolNameInput"
 						/>
 						<label htmlFor="degreeInput">Degree:</label>
 						<input
 							onChange={this.handelChange}
-							//value={this.state.degree}
 							name="degree"
 							type="text"
 							id="degreeInput"
@@ -174,14 +172,12 @@ class EducationForm extends Component {
 						<input
 							onChange={this.handelChange}
 							name="startDate"
-							//value={this.state.startDate}
 							type="text"
 							id="startDateInput"
 						/>
 						<label htmlFor="endDateInput">End Date:</label>
 						<input
 							onChange={this.handelChange}
-							//value={this.state.endDate}
 							name="endDate"
 							type="text"
 							id="endDateInput"
