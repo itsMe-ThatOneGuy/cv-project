@@ -1,5 +1,6 @@
 import { Component } from "react";
 import Education from "./Education";
+import uniqid from "uniqid";
 
 class EducationForm extends Component {
 	constructor() {
@@ -7,7 +8,7 @@ class EducationForm extends Component {
 
 		this.state = {
 			school: {
-				id: 0,
+				id: uniqid(),
 				schoolName: "",
 				degree: "",
 				startDate: "",
@@ -16,7 +17,7 @@ class EducationForm extends Component {
 			},
 			schools: [
 				{
-					id: 0,
+					id: uniqid(),
 					schoolName: "Test School",
 					degree: "CIS",
 					startDate: "2013",
@@ -65,7 +66,7 @@ class EducationForm extends Component {
 			displayForm: false,
 			schools: schools,
 			school: {
-				id: 0,
+				id: uniqid(),
 				schoolName: "",
 				degree: "",
 				startDate: "",
