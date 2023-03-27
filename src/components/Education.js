@@ -6,7 +6,7 @@ class Education extends Component {
 			<div>
 				{this.props.info.schools.map((school) => {
 					return (
-						<div key={school.id++}>
+						<div key={school.id}>
 							<p>{school.schoolName}</p>
 							<p>Degree: {school.degree}</p>
 							<p>Start Date: {school.startDate}</p>
