@@ -12,9 +12,20 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
+				<header>
+					<h1>CV-App</h1>
+				</header>
 				<GeneralForm />
 				<EducationForm />
 				<EmploymentForm />
+				<footer>
+					<p>
+						Copyright © 2023{" "}
+						<a href="https://github.com/itsMe-ThatOneGuy" target="_blank">
+							itsMe-ThatOneGuy
+						</a>
+					</p>
+				</footer>
 			</div>
 		);
 	}
