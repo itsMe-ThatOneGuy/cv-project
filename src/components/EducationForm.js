@@ -8,17 +8,33 @@ class EducationForm extends Component {
 		this.state = {
 			school: {
 				id: 0,
-				schoolName: "Test School",
-				degree: "CIS",
-				startDate: "2013",
-				endDate: "2015",
+				schoolName: "",
+				degree: "",
+				startDate: "",
+				endDate: "",
 				edit: false,
 			},
-			schools: [],
+			schools: [
+				{
+					id: 0,
+					schoolName: "Test School",
+					degree: "CIS",
+					startDate: "2013",
+					endDate: "2015",
+					edit: false,
+				},
+			],
+			displayForm: false,
 		};
 
 		this.editOnClick = this.editOnClick.bind(this);
 	}
+
+	openForm = () => {
+		this.setState({
+			displayForm: true,
+		});
+	};
 
 	editOnClick = () => {
 		if (!this.state.edit) {
@@ -46,6 +62,7 @@ class EducationForm extends Component {
 		e.preventDefault();
 		const schools = this.state.schools.concat(this.state.school);
 		this.setState({
+			displayForm: false,
 			schools: schools,
 			school: {
 				id: 0,
@@ -59,52 +76,57 @@ class EducationForm extends Component {
 		console.log(this.state);
 	};
 
-	test = () => {
-		console.log(this.state);
-	};
-
 	render() {
-		return (
-			<div>
-				<form onSubmit={this.onSubmitForm}>
-					<label htmlFor="schoolNameInput">School:</label>
-					<input
-						onChange={this.handelChange}
-						name="schoolName"
-						//value={this.state.school}
-						type="text"
-						id="schoolNameInput"
-					/>
-					<label htmlFor="degreeInput">Degree:</label>
-					<input
-						onChange={this.handelChange}
-						//value={this.state.degree}
-						name="degree"
-						type="text"
-						id="degreeInput"
-					/>
-					<label htmlFor="startDateInput">Start Date:</label>
-					<input
-						onChange={this.handelChange}
-						name="startDate"
-						//value={this.state.startDate}
-						type="text"
-						id="startDateInput"
-					/>
-					<label htmlFor="endDateInput">End Date:</label>
-					<input
-						onChange={this.handelChange}
-						//value={this.state.endDate}
-						name="endDate"
-						type="text"
-						id="endDateInput"
-					/>
-					<button type="submit">Save</button>
-					<button onClick={this.test}>test</button>
-				</form>
-				<Education info={this.state} />
-			</div>
-		);
+		if (this.state.displayForm === true || this.state.schools.length === 0) {
+			return (
+				<div>
+					<form onSubmit={this.onSubmitForm}>
+						<label htmlFor="schoolNameInput">School:</label>
+						<input
+							onChange={this.handelChange}
+							name="schoolName"
+							//value={this.state.school}
+							type="text"
+							id="schoolNameInput"
+						/>
+						<label htmlFor="degreeInput">Degree:</label>
+						<input
+							onChange={this.handelChange}
+							//value={this.state.degree}
+							name="degree"
+							type="text"
+							id="degreeInput"
+						/>
+						<label htmlFor="startDateInput">Start Date:</label>
+						<input
+							onChange={this.handelChange}
+							name="startDate"
+							//value={this.state.startDate}
+							type="text"
+							id="startDateInput"
+						/>
+						<label htmlFor="endDateInput">End Date:</label>
+						<input
+							onChange={this.handelChange}
+							//value={this.state.endDate}
+							name="endDate"
+							type="text"
+							id="endDateInput"
+						/>
+						<button type="submit">Save</button>
+					</form>
+					<Education info={this.state} />
+					<button onClick={this.openForm}>Add More</button>
+				</div>
+			);
+		} else {
+			return (
+				<div>
+					<Education info={this.state} />
+					<button onClick={this.openForm}>Add More</button>
+				</div>
+			);
+		}
 	}
 }
 
