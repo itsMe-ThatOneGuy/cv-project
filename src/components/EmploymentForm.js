@@ -38,11 +38,20 @@ class EmploymentForm extends Component {
 		};
 
 		this.editOnClick = this.editOnClick.bind(this);
+		this.deleteOnclick = this.deleteOnclick.bind(this);
 	}
 
 	openForm = () => {
 		this.setState({
 			displayForm: true,
+		});
+	};
+
+	deleteOnclick = (e) => {
+		const jobId = e.target.id.replace("delete-", "");
+		const newJobs = this.state.jobs.filter((job) => job.id != jobId);
+		this.setState({
+			jobs: newJobs,
 		});
 	};
 
@@ -147,44 +156,35 @@ class EmploymentForm extends Component {
 			return (
 				<div>
 					<form onSubmit={this.onSubmitForm}>
-						<label htmlFor="employerInput">School:</label>
+						<label htmlFor="employerInput">Employer:</label>
 						<input
 							onChange={this.handelChange}
-							value={this.state.employer}
 							type="text"
 							id="employerInput"
 						/>
-						<label htmlFor="titleInput">Degree:</label>
+						<label htmlFor="titleInput">Title:</label>
+						<input onChange={this.handelChange} type="text" id="titleInput" />
+						<label htmlFor="responsibilitiesInput">Responsibilities:</label>
 						<input
 							onChange={this.handelChange}
-							value={this.state.title}
-							type="text"
-							id="titleInput"
-						/>
-						<label htmlFor="responsibilitiesInput">Degree:</label>
-						<input
-							onChange={this.handelChange}
-							value={this.state.responsibilities}
 							type="text"
 							id="responsibilitiesInput"
 						/>
 						<label htmlFor="startDateInput">Start Date:</label>
 						<input
 							onChange={this.handelChange}
-							value={this.state.startDate}
 							type="text"
 							id="startDateInput"
 						/>
 						<label htmlFor="endDateInput">End Date:</label>
-						<input
-							onChange={this.handelChange}
-							value={this.state.endDate}
-							type="text"
-							id="endDateInput"
-						/>
+						<input onChange={this.handelChange} type="text" id="endDateInput" />
 						<button type="submit">Save</button>
 					</form>
-					<Employment info={this.state} editOnClick={this.editOnClick} />
+					<Employment
+						info={this.state}
+						editOnClick={this.editOnClick}
+						deleteOnclick={this.deleteOnclick}
+					/>
 					<button onClick={this.openForm}>Add More</button>
 				</div>
 			);
@@ -192,21 +192,21 @@ class EmploymentForm extends Component {
 			return (
 				<div>
 					<form onSubmit={this.onSubmitForm}>
-						<label htmlFor="employerInput">School:</label>
+						<label htmlFor="employerInput">Employer:</label>
 						<input
 							onChange={this.handelChange}
 							value={this.state.edited.employer}
 							type="text"
 							id="employerInput"
 						/>
-						<label htmlFor="titleInput">Degree:</label>
+						<label htmlFor="titleInput">Title:</label>
 						<input
 							onChange={this.handelChange}
 							value={this.state.edited.title}
 							type="text"
 							id="titleInput"
 						/>
-						<label htmlFor="responsibilitiesInput">Degree:</label>
+						<label htmlFor="responsibilitiesInput">Responsibilities:</label>
 						<input
 							onChange={this.handelChange}
 							value={this.state.edited.responsibilities}
@@ -234,7 +234,11 @@ class EmploymentForm extends Component {
 		} else {
 			return (
 				<div>
-					<Employment info={this.state} editOnClick={this.editOnClick} />
+					<Employment
+						info={this.state}
+						editOnClick={this.editOnClick}
+						deleteOnclick={this.deleteOnclick}
+					/>
 					<button onClick={this.openForm}>Add More</button>
 				</div>
 			);
