@@ -11,7 +11,9 @@ class Education extends Component {
 							<p>Degree: {school.degree}</p>
 							<p>Start Date: {school.startDate}</p>
 							<p>End Date: {school.endDate}</p>
-							<button>Edit</button>
+							<button onClick={this.props.editOnClick} id={school.id}>
+								Edit
+							</button>
 						</div>
 					);
 				})}
