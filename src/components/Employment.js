@@ -7,11 +7,11 @@ class Employment extends Component {
 				{this.props.info.jobs.map((job) => {
 					return (
 						<div key={job.id}>
-							<p>{this.props.info.employer}</p>
-							<p>Title: {this.props.info.title}</p>
-							<p>Responsibilities: {this.props.info.responsibilities}</p>
-							<p>Start Date: {this.props.info.startDate}</p>
-							<p>End Date: {this.props.info.endDate}</p>
+							<p>{job.employer}</p>
+							<p>Title: {job.title}</p>
+							<p>Responsibilities: {job.responsibilities}</p>
+							<p>Start Date: {job.startDate}</p>
+							<p>End Date: {job.endDate}</p>
 							<button onClick={this.props.editOnClick} id={job.id}>
 								Edit
 							</button>
