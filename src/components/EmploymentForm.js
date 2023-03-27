@@ -1,16 +1,40 @@
 import { Component } from "react";
 import Employment from "./Employment";
+import uniqid from "uniqid";
 
 class EmploymentForm extends Component {
 	constructor() {
 		super();
 
 		this.state = {
-			employer: "Test Employer",
-			title: "Full Stack Developer",
-			responsibilities: "Coding all the things",
-			startDate: "2020",
-			endDate: "2023",
+			job: {
+				id: uniqid(),
+				employer: "",
+				title: "",
+				responsibilities: "",
+				startDate: "",
+				endDate: "",
+			},
+			jobs: [
+				{
+					id: uniqid(),
+					employer: "Test Employer",
+					title: "Full Stack Developer",
+					responsibilities: "Coding all the things",
+					startDate: "2020",
+					endDate: "2023",
+				},
+			],
+			displayForm: false,
+			edit: false,
+			edited: {
+				id: "",
+				employer: "",
+				title: "",
+				responsibilities: "",
+				startDate: "",
+				endDate: "",
+			},
 		};
 
 		this.editOnClick = this.editOnClick.bind(this);
