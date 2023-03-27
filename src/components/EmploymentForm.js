@@ -59,20 +59,79 @@ class EmploymentForm extends Component {
 	};
 
 	handelChange = (e) => {
-		for (const [key] of Object.entries(this.state)) {
-			if (e.target.id === `${key}Input`) {
-				this.setState({
-					[key]: e.target.value,
-				});
+		if (this.state.edit === true) {
+			for (const [key] of Object.entries(this.state.edited)) {
+				if (e.target.id === `${key}Input`) {
+					this.setState((prevState) => ({
+						edited: { ...prevState.edited, [key]: e.target.value },
+					}));
+				}
+			}
+		} else {
+			for (const [key] of Object.entries(this.state.job)) {
+				if (e.target.id === `${key}Input`) {
+					this.setState((prevState) => ({
+						job: { ...prevState.job, [key]: e.target.value },
+					}));
+				}
 			}
 		}
 	};
 
 	onSubmitForm = (e) => {
 		e.preventDefault();
-		this.setState({
-			edit: false,
-		});
+		if (this.state.edit === false) {
+			const jobs = this.state.jobs.concat(this.state.job);
+			this.setState({
+				job: {
+					id: uniqid(),
+					employer: "",
+					title: "",
+					responsibilities: "",
+					startDate: "",
+					endDate: "",
+				},
+				jobs: jobs,
+				displayForm: false,
+				edit: false,
+				edited: {
+					id: "",
+					employer: "",
+					title: "",
+					responsibilities: "",
+					startDate: "",
+					endDate: "",
+				},
+			});
+		} else {
+			const old = this.state.jobs.find(
+				(item) => item.id === this.state.edited.id
+			);
+			const newJobs = this.state.jobs
+				.filter((item) => item.id != old.id)
+				.concat(this.state.edited);
+			this.setState({
+				jobs: newJobs,
+				job: {
+					id: uniqid(),
+					employer: "",
+					title: "",
+					responsibilities: "",
+					startDate: "",
+					endDate: "",
+				},
+				edit: false,
+				edited: {
+					id: "",
+					employer: "",
+					title: "",
+					responsibilities: "",
+					startDate: "",
+					endDate: "",
+				},
+			});
+		}
+		console.log(this.state);
 	};
 
 	render() {
