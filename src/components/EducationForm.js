@@ -145,10 +145,6 @@ class EducationForm extends Component {
 		console.log(this.state);
 	};
 
-	test = () => {
-		console.log(this.state);
-	};
-
 	render() {
 		if (this.state.displayForm === true || this.state.schools.length === 0) {
 			return (
@@ -242,7 +238,6 @@ class EducationForm extends Component {
 						deleteOnclick={this.deleteOnclick}
 					/>
 					<button onClick={this.openForm}>Add More</button>
-					<button onClick={this.test}>TEST</button>
 				</div>
 			);
 		}
