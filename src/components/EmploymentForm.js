@@ -155,6 +155,7 @@ class EmploymentForm extends Component {
 		if (this.state.displayForm === true || this.state.jobs.length === 0) {
 			return (
 				<div>
+					<h3>Add New Employment Info</h3>
 					<form onSubmit={this.onSubmitForm}>
 						<label htmlFor="employerInput">Employer:</label>
 						<input
@@ -191,6 +192,7 @@ class EmploymentForm extends Component {
 		} else if (this.state.edit === true) {
 			return (
 				<div>
+					<h3>Edit Selected Employment Info</h3>
 					<form onSubmit={this.onSubmitForm}>
 						<label htmlFor="employerInput">Employer:</label>
 						<input

@@ -4,6 +4,7 @@ class Employment extends Component {
 	render() {
 		return (
 			<div>
+				<h2>Employment Info</h2>
 				{this.props.info.jobs.map((job) => {
 					return (
 						<div key={job.id}>
