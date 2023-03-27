@@ -46,16 +46,24 @@ class EmploymentForm extends Component {
 		});
 	};
 
-	editOnClick = () => {
-		if (!this.state.edit) {
-			this.setState({
-				edit: true,
-			});
-		} else {
-			this.setState({
-				edit: false,
-			});
-		}
+	editOnClick = (e) => {
+		const jobId = e.target.id;
+		if (this.state.edit === true) return;
+		this.state.jobs.forEach((job) => {
+			if (job.id === jobId) {
+				this.setState({
+					edit: true,
+					edited: {
+						id: jobId,
+						employer: job.employer,
+						title: job.title,
+						responsibilities: job.responsibilities,
+						startDate: job.startDate,
+						endDate: job.endDate,
+					},
+				});
+			}
+		});
 	};
 
 	handelChange = (e) => {
@@ -178,6 +186,49 @@ class EmploymentForm extends Component {
 					</form>
 					<Employment info={this.state} editOnClick={this.editOnClick} />
 					<button onClick={this.openForm}>Add More</button>
+				</div>
+			);
+		} else if (this.state.edit === true) {
+			return (
+				<div>
+					<form onSubmit={this.onSubmitForm}>
+						<label htmlFor="employerInput">School:</label>
+						<input
+							onChange={this.handelChange}
+							value={this.state.edited.employer}
+							type="text"
+							id="employerInput"
+						/>
+						<label htmlFor="titleInput">Degree:</label>
+						<input
+							onChange={this.handelChange}
+							value={this.state.edited.title}
+							type="text"
+							id="titleInput"
+						/>
+						<label htmlFor="responsibilitiesInput">Degree:</label>
+						<input
+							onChange={this.handelChange}
+							value={this.state.edited.responsibilities}
+							type="text"
+							id="responsibilitiesInput"
+						/>
+						<label htmlFor="startDateInput">Start Date:</label>
+						<input
+							onChange={this.handelChange}
+							value={this.state.edited.startDate}
+							type="text"
+							id="startDateInput"
+						/>
+						<label htmlFor="endDateInput">End Date:</label>
+						<input
+							onChange={this.handelChange}
+							value={this.state.edited.endDate}
+							type="text"
+							id="endDateInput"
+						/>
+						<button type="submit">Save</button>
+					</form>
 				</div>
 			);
 		} else {
