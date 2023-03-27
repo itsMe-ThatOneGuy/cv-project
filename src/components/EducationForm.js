@@ -35,11 +35,22 @@ class EducationForm extends Component {
 		};
 
 		this.editOnClick = this.editOnClick.bind(this);
+		this.deleteOnclick = this.deleteOnclick.bind(this);
 	}
 
 	openForm = () => {
 		this.setState({
 			displayForm: true,
+		});
+	};
+
+	deleteOnclick = (e) => {
+		const schoolId = e.target.id.replace("delete-", "");
+		const newSchools = this.state.schools.filter(
+			(school) => school.id != schoolId
+		);
+		this.setState({
+			schools: newSchools,
 		});
 	};
 
@@ -177,7 +188,11 @@ class EducationForm extends Component {
 						/>
 						<button type="submit">Save</button>
 					</form>
-					<Education info={this.state} editOnClick={this.editOnClick} />
+					<Education
+						info={this.state}
+						editOnClick={this.editOnClick}
+						deleteOnclick={this.deleteOnclick}
+					/>
 					<button onClick={this.openForm}>Add More</button>
 					<button onClick={this.test}>TEST</button>
 				</div>
@@ -225,7 +240,11 @@ class EducationForm extends Component {
 		} else {
 			return (
 				<div>
-					<Education info={this.state} editOnClick={this.editOnClick} />
+					<Education
+						info={this.state}
+						editOnClick={this.editOnClick}
+						deleteOnclick={this.deleteOnclick}
+					/>
 					<button onClick={this.openForm}>Add More</button>
 					<button onClick={this.test}>TEST</button>
 				</div>
