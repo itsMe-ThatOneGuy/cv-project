@@ -50,6 +50,7 @@ class GeneralForm extends Component {
 		} else {
 			return (
 				<div>
+					<h2>General Info</h2>
 					<form onSubmit={this.onSubmitForm}>
 						<label htmlFor="nameInput">Name:</label>
 						<input

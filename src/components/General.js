@@ -4,6 +4,7 @@ class General extends Component {
 	render() {
 		return (
 			<div>
+				<h2>General Info</h2>
 				<div>
 					<p>{this.props.info.name}</p>
 					<p>Phone: {this.props.info.phone}</p>
