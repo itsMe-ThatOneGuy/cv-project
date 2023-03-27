@@ -14,6 +14,11 @@ class Education extends Component {
 							<button onClick={this.props.editOnClick} id={school.id}>
 								Edit
 							</button>
+							<button
+								onClick={this.props.deleteOnclick}
+								id={`delete-${school.id}`}>
+								Delete
+							</button>
 						</div>
 					);
 				})}
