@@ -149,6 +149,7 @@ class EducationForm extends Component {
 		if (this.state.displayForm === true || this.state.schools.length === 0) {
 			return (
 				<div>
+					<h3>Add New Education Info</h3>
 					<form onSubmit={this.onSubmitForm}>
 						<label htmlFor="schoolNameInput">School:</label>
 						<input
@@ -186,12 +187,12 @@ class EducationForm extends Component {
 						deleteOnclick={this.deleteOnclick}
 					/>
 					<button onClick={this.openForm}>Add More</button>
-					<button onClick={this.test}>TEST</button>
 				</div>
 			);
 		} else if (this.state.edit === true) {
 			return (
 				<div>
+					<h3>Edit Selected Education Info</h3>
 					<form onSubmit={this.onSubmitForm}>
 						<label htmlFor="schoolNameInput">School:</label>
 						<input

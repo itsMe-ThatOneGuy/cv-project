@@ -4,6 +4,7 @@ class Education extends Component {
 	render() {
 		return (
 			<div>
+				<h2>Education Info</h2>
 				{this.props.info.schools.map((school) => {
 					return (
 						<div key={school.id}>
