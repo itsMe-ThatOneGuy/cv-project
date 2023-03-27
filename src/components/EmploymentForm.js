@@ -40,6 +40,12 @@ class EmploymentForm extends Component {
 		this.editOnClick = this.editOnClick.bind(this);
 	}
 
+	openForm = () => {
+		this.setState({
+			displayForm: true,
+		});
+	};
+
 	editOnClick = () => {
 		if (!this.state.edit) {
 			this.setState({
@@ -70,9 +76,7 @@ class EmploymentForm extends Component {
 	};
 
 	render() {
-		if (!this.state.edit) {
-			return <Employment info={this.state} func={this.editOnClick} />;
-		} else {
+		if (this.state.displayForm === true || this.state.jobs.length === 0) {
 			return (
 				<div>
 					<form onSubmit={this.onSubmitForm}>
@@ -113,6 +117,15 @@ class EmploymentForm extends Component {
 						/>
 						<button type="submit">Save</button>
 					</form>
+					<Employment info={this.state} editOnClick={this.editOnClick} />
+					<button onClick={this.openForm}>Add More</button>
+				</div>
+			);
+		} else {
+			return (
+				<div>
+					<Employment info={this.state} editOnClick={this.editOnClick} />
+					<button onClick={this.openForm}>Add More</button>
 				</div>
 			);
 		}
