@@ -1,84 +1,80 @@
-import { Component } from "react";
 import General from "./General";
+import { useState } from "react";
 
-class GeneralForm extends Component {
-	constructor() {
-		super();
+const GeneralForm = () => {
+	const [info, setInfo] = useState({
+		name: "Jone Doe",
+		phone: "(123) 123-1234",
+		email: "jonedoe123@gmail.com",
+		edit: false,
+	});
 
-		this.state = {
-			name: "Jone Doe",
-			phone: "(123) 123-1234",
-			email: "jonedoe123@gmail.com",
-			edit: false,
-		};
-
-		this.editOnClick = this.editOnClick.bind(this);
-	}
-
-	editOnClick = () => {
-		if (!this.state.edit) {
-			this.setState({
+	const editOnClick = () => {
+		if (!info.edit) {
+			setInfo({
+				...info,
 				edit: true,
 			});
 		} else {
-			this.setState({
+			setInfo({
+				...info,
 				edit: false,
 			});
 		}
 	};
 
-	handelChange = (e) => {
-		for (const [key] of Object.entries(this.state)) {
+	const handelChange = (e) => {
+		for (const [key] of Object.entries(info)) {
 			if (e.target.id === `${key}Input`) {
-				this.setState({
+				setInfo({
+					...info,
 					[key]: e.target.value,
 				});
 			}
 		}
 	};
 
-	onSubmitForm = (e) => {
+	const onSubmitForm = (e) => {
 		e.preventDefault();
-		this.setState({
+		setInfo({
+			...info,
 			edit: false,
 		});
 	};
 
-	render() {
-		if (!this.state.edit) {
-			return <General info={this.state} func={this.editOnClick} />;
-		} else {
-			return (
-				<div>
-					<h2>General Info</h2>
-					<form onSubmit={this.onSubmitForm}>
-						<label htmlFor="nameInput">Name:</label>
-						<input
-							onChange={this.handelChange}
-							value={this.state.name}
-							type="text"
-							id="nameInput"
-						/>
-						<label htmlFor="phoneInput">Phone:</label>
-						<input
-							onChange={this.handelChange}
-							value={this.state.phone}
-							type="text"
-							id="phoneInput"
-						/>
-						<label htmlFor="emailInput">Email:</label>
-						<input
-							onChange={this.handelChange}
-							value={this.state.email}
-							type="text"
-							id="emailInput"
-						/>
-						<button type="submit">Save</button>
-					</form>
-				</div>
-			);
-		}
+	if (!info.edit) {
+		return <General info={info} func={editOnClick} />;
+	} else {
+		return (
+			<div>
+				<h2>General Info</h2>
+				<form onSubmit={onSubmitForm}>
+					<label htmlFor="nameInput">Name:</label>
+					<input
+						onChange={handelChange}
+						value={info.name}
+						type="text"
+						id="nameInput"
+					/>
+					<label htmlFor="phoneInput">Phone:</label>
+					<input
+						onChange={handelChange}
+						value={info.phone}
+						type="text"
+						id="phoneInput"
+					/>
+					<label htmlFor="emailInput">Email:</label>
+					<input
+						onChange={handelChange}
+						value={info.email}
+						type="text"
+						id="emailInput"
+					/>
+					<button type="submit">Save</button>
+				</form>
+			</div>
+		);
 	}
-}
+};
 
 export default GeneralForm;
