@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "./App.css";
 import EducationForm from "./components/EducationForm";
 import EmploymentForm from "./components/EmploymentForm";
