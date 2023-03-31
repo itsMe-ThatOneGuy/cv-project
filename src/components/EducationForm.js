@@ -1,65 +1,59 @@
-import { Component } from "react";
+import { useState } from "react";
 import Education from "./Education";
 import uniqid from "uniqid";
 
-class EducationForm extends Component {
-	constructor() {
-		super();
-
-		this.state = {
-			school: {
+const EducationForm = () => {
+	const [info, setInfo] = useState({
+		school: {
+			id: uniqid(),
+			schoolName: "",
+			degree: "",
+			startDate: "",
+			endDate: "",
+		},
+		schools: [
+			{
 				id: uniqid(),
-				schoolName: "",
-				degree: "",
-				startDate: "",
-				endDate: "",
+				schoolName: "Test School",
+				degree: "CIS",
+				startDate: "2013",
+				endDate: "2015",
 			},
-			schools: [
-				{
-					id: uniqid(),
-					schoolName: "Test School",
-					degree: "CIS",
-					startDate: "2013",
-					endDate: "2015",
-				},
-			],
-			displayForm: false,
-			edit: false,
-			edited: {
-				id: "",
-				schoolName: "",
-				degree: "",
-				startDate: "",
-				endDate: "",
-			},
-		};
+		],
+		displayForm: false,
+		edit: false,
+		edited: {
+			id: "",
+			schoolName: "",
+			degree: "",
+			startDate: "",
+			endDate: "",
+		},
+	});
 
-		this.editOnClick = this.editOnClick.bind(this);
-		this.deleteOnclick = this.deleteOnclick.bind(this);
-	}
-
-	openForm = () => {
-		this.setState({
+	const openForm = () => {
+		setInfo({
+			...info,
 			displayForm: true,
 		});
 	};
 
-	deleteOnclick = (e) => {
+	const deleteOnclick = (e) => {
 		const schoolId = e.target.id.replace("delete-", "");
-		const newSchools = this.state.schools.filter(
-			(school) => school.id != schoolId
-		);
-		this.setState({
+		const newSchools = info.schools.filter((school) => school.id !== schoolId);
+		setInfo({
+			...info,
 			schools: newSchools,
 		});
 	};
 
-	editOnClick = (e) => {
+	const editOnClick = (e) => {
 		const schoolId = e.target.id;
-		if (this.state.edit === true) return;
-		this.state.schools.forEach((school) => {
+		if (info.edit === true) return;
+		info.schools.forEach((school) => {
 			if (school.id === schoolId) {
-				this.setState({
+				setInfo({
+					...info,
 					edit: true,
 					edited: {
 						id: schoolId,
@@ -73,31 +67,33 @@ class EducationForm extends Component {
 		});
 	};
 
-	handelChange = (e) => {
-		if (this.state.edit === true) {
-			for (const [key] of Object.entries(this.state.edited)) {
+	const handelChange = (e) => {
+		if (info.edit === true) {
+			for (const [key] of Object.entries(info.edited)) {
 				if (e.target.id === `${key}Input`) {
-					this.setState((prevState) => ({
-						edited: { ...prevState.edited, [key]: e.target.value },
-					}));
+					setInfo({
+						...info,
+						edited: { ...info.edited, [key]: e.target.value },
+					});
 				}
 			}
 		} else {
-			for (const [key] of Object.entries(this.state.school)) {
+			for (const [key] of Object.entries(info.school)) {
 				if (e.target.id === `${key}Input`) {
-					this.setState((prevState) => ({
-						school: { ...prevState.school, [key]: e.target.value },
-					}));
+					setInfo({
+						...info,
+						school: { ...info.school, [key]: e.target.value },
+					});
 				}
 			}
 		}
 	};
 
-	onSubmitForm = (e) => {
+	const onSubmitForm = (e) => {
 		e.preventDefault();
-		if (this.state.edit === false) {
-			const schools = this.state.schools.concat(this.state.school);
-			this.setState({
+		if (info.edit === false) {
+			const schools = info.schools.concat(info.school);
+			setInfo({
 				school: {
 					id: uniqid(),
 					schoolName: "",
@@ -117,13 +113,11 @@ class EducationForm extends Component {
 				},
 			});
 		} else {
-			const old = this.state.schools.find(
-				(item) => item.id === this.state.edited.id
-			);
-			const newSchools = this.state.schools
-				.filter((item) => item.id != old.id)
-				.concat(this.state.edited);
-			this.setState({
+			const old = info.schools.find((item) => item.id === info.edited.id);
+			const newSchools = info.schools
+				.filter((item) => item.id !== old.id)
+				.concat(info.edited);
+			setInfo({
 				schools: newSchools,
 				school: {
 					id: uniqid(),
@@ -142,107 +136,105 @@ class EducationForm extends Component {
 				},
 			});
 		}
-		console.log(this.state);
+		console.log(info);
 	};
 
-	render() {
-		if (this.state.displayForm === true || this.state.schools.length === 0) {
-			return (
-				<div>
-					<h3>Add New Education Info</h3>
-					<form onSubmit={this.onSubmitForm}>
-						<label htmlFor="schoolNameInput">School:</label>
-						<input
-							onChange={this.handelChange}
-							name="schoolName"
-							type="text"
-							id="schoolNameInput"
-						/>
-						<label htmlFor="degreeInput">Degree:</label>
-						<input
-							onChange={this.handelChange}
-							name="degree"
-							type="text"
-							id="degreeInput"
-						/>
-						<label htmlFor="startDateInput">Start Date:</label>
-						<input
-							onChange={this.handelChange}
-							name="startDate"
-							type="text"
-							id="startDateInput"
-						/>
-						<label htmlFor="endDateInput">End Date:</label>
-						<input
-							onChange={this.handelChange}
-							name="endDate"
-							type="text"
-							id="endDateInput"
-						/>
-						<button type="submit">Save</button>
-					</form>
-					<Education
-						info={this.state}
-						editOnClick={this.editOnClick}
-						deleteOnclick={this.deleteOnclick}
+	if (info.displayForm === true || info.schools.length === 0) {
+		return (
+			<div>
+				<h3>Add New Education Info</h3>
+				<form onSubmit={onSubmitForm}>
+					<label htmlFor="schoolNameInput">School:</label>
+					<input
+						onChange={handelChange}
+						name="schoolName"
+						type="text"
+						id="schoolNameInput"
 					/>
-					<button onClick={this.openForm}>Add More</button>
-				</div>
-			);
-		} else if (this.state.edit === true) {
-			return (
-				<div>
-					<h3>Edit Selected Education Info</h3>
-					<form onSubmit={this.onSubmitForm}>
-						<label htmlFor="schoolNameInput">School:</label>
-						<input
-							onChange={this.handelChange}
-							name="schoolName"
-							value={this.state.edited.schoolName}
-							type="text"
-							id="schoolNameInput"
-						/>
-						<label htmlFor="degreeInput">Degree:</label>
-						<input
-							onChange={this.handelChange}
-							value={this.state.edited.degree}
-							name="degree"
-							type="text"
-							id="degreeInput"
-						/>
-						<label htmlFor="startDateInput">Start Date:</label>
-						<input
-							onChange={this.handelChange}
-							name="startDate"
-							value={this.state.edited.startDate}
-							type="text"
-							id="startDateInput"
-						/>
-						<label htmlFor="endDateInput">End Date:</label>
-						<input
-							onChange={this.handelChange}
-							value={this.state.edited.endDate}
-							name="endDate"
-							type="text"
-							id="endDateInput"
-						/>
-						<button type="submit">Save</button>
-					</form>
-				</div>
-			);
-		} else {
-			return (
-				<div>
-					<Education
-						info={this.state}
-						editOnClick={this.editOnClick}
-						deleteOnclick={this.deleteOnclick}
+					<label htmlFor="degreeInput">Degree:</label>
+					<input
+						onChange={handelChange}
+						name="degree"
+						type="text"
+						id="degreeInput"
 					/>
-					<button onClick={this.openForm}>Add More</button>
-				</div>
-			);
-		}
+					<label htmlFor="startDateInput">Start Date:</label>
+					<input
+						onChange={handelChange}
+						name="startDate"
+						type="text"
+						id="startDateInput"
+					/>
+					<label htmlFor="endDateInput">End Date:</label>
+					<input
+						onChange={handelChange}
+						name="endDate"
+						type="text"
+						id="endDateInput"
+					/>
+					<button type="submit">Save</button>
+				</form>
+				<Education
+					info={info}
+					editOnClick={editOnClick}
+					deleteOnclick={deleteOnclick}
+				/>
+				<button onClick={openForm}>Add More</button>
+			</div>
+		);
+	} else if (info.edit === true) {
+		return (
+			<div>
+				<h3>Edit Selected Education Info</h3>
+				<form onSubmit={onSubmitForm}>
+					<label htmlFor="schoolNameInput">School:</label>
+					<input
+						onChange={handelChange}
+						name="schoolName"
+						value={info.edited.schoolName}
+						type="text"
+						id="schoolNameInput"
+					/>
+					<label htmlFor="degreeInput">Degree:</label>
+					<input
+						onChange={handelChange}
+						value={info.edited.degree}
+						name="degree"
+						type="text"
+						id="degreeInput"
+					/>
+					<label htmlFor="startDateInput">Start Date:</label>
+					<input
+						onChange={handelChange}
+						name="startDate"
+						value={info.edited.startDate}
+						type="text"
+						id="startDateInput"
+					/>
+					<label htmlFor="endDateInput">End Date:</label>
+					<input
+						onChange={handelChange}
+						value={info.edited.endDate}
+						name="endDate"
+						type="text"
+						id="endDateInput"
+					/>
+					<button type="submit">Save</button>
+				</form>
+			</div>
+		);
+	} else {
+		return (
+			<div>
+				<Education
+					info={info}
+					editOnClick={editOnClick}
+					deleteOnclick={deleteOnclick}
+				/>
+				<button onClick={openForm}>Add More</button>
+			</div>
+		);
 	}
-}
+};
 
 export default EducationForm;
