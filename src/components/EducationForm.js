@@ -57,28 +57,6 @@ const EducationForm = () => {
 		setBuffer({ ...buffer, [key]: value });
 	};
 
-	const handelChange = (e) => {
-		if (info.edit === true) {
-			for (const [key] of Object.entries(info.edited)) {
-				if (e.target.id === `${key}Input`) {
-					setInfo({
-						...info,
-						edited: { ...info.edited, [key]: e.target.value },
-					});
-				}
-			}
-		} else {
-			for (const [key] of Object.entries(info.school)) {
-				if (e.target.id === `${key}Input`) {
-					setInfo({
-						...info,
-						school: { ...info.school, [key]: e.target.value },
-					});
-				}
-			}
-		}
-	};
-
 	const onSubmitForm = (e) => {
 		e.preventDefault();
 		if (info.edit === false) {
