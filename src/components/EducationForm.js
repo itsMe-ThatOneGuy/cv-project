@@ -1,20 +1,12 @@
 import { useState, useEffect } from "react";
 import Education from "./Education";
 import uniqid from "uniqid";
+import { defaultSchoolData } from "./Data";
 
 const EducationForm = () => {
-	const defaultSchool = {
-		id: uniqid(),
-		schoolName: "Test School",
-		degree: "CIS",
-		startDate: "2013",
-		endDate: "2015",
-	};
-
 	const [buffer, setBuffer] = useState({});
-	const [objArray, setObjArray] = useState([defaultSchool]);
+	const [objArray, setObjArray] = useState([defaultSchoolData]);
 	const [displayForm, setDisplayForm] = useState(false);
-	const [edit, setEdit] = useState(false);
 
 	useEffect(() => {
 		newBufferObj();
