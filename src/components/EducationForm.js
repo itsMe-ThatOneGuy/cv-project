@@ -3,6 +3,14 @@ import Education from "./Education";
 import uniqid from "uniqid";
 
 const EducationForm = () => {
+	const defaultSchool = {
+		id: uniqid(),
+		schoolName: "Test School",
+		degree: "CIS",
+		startDate: "2013",
+		endDate: "2015",
+	};
+
 	const [info, setInfo] = useState({
 		school: {
 			id: uniqid(),
@@ -11,15 +19,7 @@ const EducationForm = () => {
 			startDate: "",
 			endDate: "",
 		},
-		schools: [
-			{
-				id: uniqid(),
-				schoolName: "Test School",
-				degree: "CIS",
-				startDate: "2013",
-				endDate: "2015",
-			},
-		],
+		schools: [defaultSchool],
 		displayForm: false,
 		edit: false,
 		edited: {
@@ -40,7 +40,9 @@ const EducationForm = () => {
 
 	const deleteOnclick = (e) => {
 		const schoolId = e.target.id.replace("delete-", "");
-		const newSchools = info.schools.filter((school) => school.id !== schoolId);
+		const newSchools = info.schools.filter(
+			(school) => school.id !== schoolId
+		);
 		setInfo({
 			...info,
 			schools: newSchools,
