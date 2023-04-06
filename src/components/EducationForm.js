@@ -27,12 +27,24 @@ const EducationForm = () => {
 	};
 
 	const newStateObj = () => {
-		setBuffer({ id: uniqid() });
+		setBuffer({
+			id: uniqid(),
+		});
+	};
+
+	const getIndexOfObj = (key) => {
+		return objArray.findIndex((obj) => obj.id === key.id);
 	};
 
 	const deleteOnclick = (key) => {
-		const selected = objArray.filter((x) => x.id === key)[0];
+		const selected = getSelectedId(key);
 		const newArray = objArray.filter((obj) => obj.id !== selected.id);
+		setObjArray(newArray);
+	};
+
+	const editOnClick = (key) => {
+		loadBuffer(key);
+		openForm();
 	};
 
 	const getSelectedId = (key) => {
@@ -40,7 +52,7 @@ const EducationForm = () => {
 	};
 
 	const loadBuffer = (key) => {
-		const selected = objArray.filter((x) => x.id === key)[0];
+		const selected = getSelectedId(key);
 		setBuffer({ ...selected });
 	};
 
@@ -52,7 +64,12 @@ const EducationForm = () => {
 
 	const onSubmitForm = (e) => {
 		e.preventDefault();
-		const array = objArray.concat(buffer);
+		let array = [...objArray];
+		if (objArray.some((obj) => obj.id === buffer.id)) {
+			array.splice(getIndexOfObj(buffer), 1, buffer);
+		} else {
+			array = objArray.concat(buffer);
+		}
 		setObjArray(array);
 		setDisplayForm(false);
 		newStateObj();
@@ -115,7 +132,7 @@ const EducationForm = () => {
 				</form>
 				<Education
 					info={objArray}
-					loadBuffer={loadBuffer}
+					editOnClick={editOnClick}
 					deleteOnclick={deleteOnclick}
 				/>
 				<button onClick={openForm}>Add More</button>
@@ -126,7 +143,7 @@ const EducationForm = () => {
 			<div>
 				<Education
 					info={objArray}
-					loadBuffer={loadBuffer}
+					editOnClick={editOnClick}
 					deleteOnclick={deleteOnclick}
 				/>
 				<button onClick={openForm}>Add More</button>
