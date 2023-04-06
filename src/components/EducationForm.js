@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Education from "./Education";
 import uniqid from "uniqid";
 
@@ -11,24 +11,26 @@ const EducationForm = () => {
 		endDate: "2015",
 	};
 
-	const [buffer, setBuffer] = useState({
-		id: uniqid(),
-		schoolName: "",
-		degree: "",
-		startDate: "",
-		endDate: "",
-	});
+	const [buffer, setBuffer] = useState({});
 	const [objArray, setObjArray] = useState([defaultSchool]);
 	const [displayForm, setDisplayForm] = useState(false);
 	const [edit, setEdit] = useState(false);
+
+	useEffect(() => {
+		newBufferObj();
+	}, []);
 
 	const openForm = () => {
 		setDisplayForm(true);
 	};
 
-	const newStateObj = () => {
+	const newBufferObj = () => {
 		setBuffer({
 			id: uniqid(),
+			schoolName: "",
+			degree: "",
+			startDate: "",
+			endDate: "",
 		});
 	};
 
@@ -72,7 +74,7 @@ const EducationForm = () => {
 		}
 		setObjArray(array);
 		setDisplayForm(false);
-		newStateObj();
+		newBufferObj();
 	};
 
 	if (displayForm === true || objArray.length === 0) {
