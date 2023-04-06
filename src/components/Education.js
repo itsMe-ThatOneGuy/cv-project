@@ -10,10 +10,12 @@ const Education = (props) => {
 						<p>Start Date: {school.startDate}</p>
 						<p>End Date: {school.endDate}</p>
 						<button
-							onClick={(e) =>
-								props.loadBuffer(
-									e.currentTarget.parentNode.dataset.objId
-								)
+							onClick={
+								((e) =>
+									props.loadBuffer(
+										e.currentTarget.parentNode.dataset.objId
+									),
+								props.openForm())
 							}>
 							Edit
 						</button>
