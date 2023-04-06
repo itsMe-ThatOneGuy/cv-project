@@ -11,8 +11,14 @@ const EducationForm = () => {
 		endDate: "2015",
 	};
 
-	const [buffer, setBuffer] = useState({ id: uniqid() });
-	const [schools, setSchools] = useState([]);
+	const [buffer, setBuffer] = useState({
+		id: uniqid(),
+		schoolName: "",
+		degree: "",
+		startDate: "",
+		endDate: "",
+	});
+	const [schools, setSchools] = useState([defaultSchool]);
 	const [displayForm, setDisplayForm] = useState(false);
 	const [edit, setEdit] = useState(false);
 
@@ -25,7 +31,6 @@ const EducationForm = () => {
 	};
 
 	//Need to change
-
 	const deleteOnclick = (e) => {
 		/*	
 		const schoolId = e.target.id.replace("delete-", "");
@@ -39,9 +44,14 @@ const EducationForm = () => {
 	*/
 	};
 
-	//Need to change
+	const loadBuffer = (key) => {
+		const selected = schools.filter((x) => x.id === key)[0];
+		setBuffer({ ...selected });
+	};
 
+	//Need to change
 	const editOnClick = (e) => {
+		console.log(e.target.parentNode);
 		/*	
 		const schoolId = e.target.id;
 		if (info.edit === true) return;
@@ -147,7 +157,7 @@ const EducationForm = () => {
 			<div>
 				<Education
 					info={schools}
-					editOnClick={editOnClick}
+					loadBuffer={loadBuffer}
 					deleteOnclick={deleteOnclick}
 				/>
 				<button onClick={openForm}>Add More</button>
