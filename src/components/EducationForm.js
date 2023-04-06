@@ -11,15 +11,17 @@ const EducationForm = () => {
 		endDate: "2015",
 	};
 
-	const [buffer, setBuffer] = useState({});
+	const [buffer, setBuffer] = useState({ id: uniqid() });
 	const [schools, setSchools] = useState([]);
 	const [displayForm, setDisplayForm] = useState(false);
 	const [edit, setEdit] = useState(false);
 
 	const openForm = () => {
-		setDisplayForm({
-			displayForm: true,
-		});
+		setDisplayForm(true);
+	};
+
+	const newStateObj = () => {
+		setBuffer({ id: uniqid() });
 	};
 
 	//Need to change
@@ -71,55 +73,10 @@ const EducationForm = () => {
 	//need to change
 	const onSubmitForm = (e) => {
 		e.preventDefault();
-		console.log(buffer);
-		/*	
-		e.preventDefault();
-		if (info.edit === false) {
-			const schools = info.schools.concat(info.school);
-			setInfo({
-				school: {
-					id: uniqid(),
-					schoolName: "",
-					degree: "",
-					startDate: "",
-					endDate: "",
-				},
-				schools: schools,
-				displayForm: false,
-				edit: false,
-				edited: {
-					id: "",
-					schoolName: "",
-					degree: "",
-					startDate: "",
-					endDate: "",
-				},
-			});
-		} else {
-			const old = info.schools.find((item) => item.id === info.edited.id);
-			const newSchools = info.schools
-				.filter((item) => item.id !== old.id)
-				.concat(info.edited);
-			setInfo({
-				schools: newSchools,
-				school: {
-					id: uniqid(),
-					schoolName: "",
-					degree: "",
-					startDate: "",
-					endDate: "",
-				},
-				edit: false,
-				edited: {
-					id: "",
-					schoolName: "",
-					degree: "",
-					startDate: "",
-					endDate: "",
-				},
-			});
-		}
-	*/
+		const array = schools.concat(buffer);
+		setSchools(array);
+		setDisplayForm(false);
+		newStateObj();
 	};
 
 	if (displayForm === true || schools.length === 0) {
