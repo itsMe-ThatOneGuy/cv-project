@@ -16,26 +16,6 @@ const EducationForm = () => {
 	const [displayForm, setDisplayForm] = useState(false);
 	const [edit, setEdit] = useState(false);
 
-	const [info, setInfo] = useState({
-		school: {
-			id: uniqid(),
-			schoolName: "",
-			degree: "",
-			startDate: "",
-			endDate: "",
-		},
-		schools: [defaultSchool],
-		displayForm: false,
-		edit: false,
-		edited: {
-			id: "",
-			schoolName: "",
-			degree: "",
-			startDate: "",
-			endDate: "",
-		},
-	});
-
 	const openForm = () => {
 		setDisplayForm({
 			displayForm: true,
@@ -71,6 +51,10 @@ const EducationForm = () => {
 				});
 			}
 		});
+	};
+
+	const handleChange = (key, value) => {
+		setBuffer({ ...buffer, [key]: value });
 	};
 
 	const handelChange = (e) => {
@@ -142,10 +126,9 @@ const EducationForm = () => {
 				},
 			});
 		}
-		console.log(info);
 	};
 
-	if (info.displayForm === true || info.schools.length === 0) {
+	if (displayForm === true || schools.length === 0) {
 		return (
 			<div>
 				<h3>Add New Education Info</h3>
@@ -181,7 +164,7 @@ const EducationForm = () => {
 					<button type="submit">Save</button>
 				</form>
 				<Education
-					info={info}
+					info={schools}
 					editOnClick={editOnClick}
 					deleteOnclick={deleteOnclick}
 				/>
@@ -195,7 +178,7 @@ const EducationForm = () => {
 				<form onSubmit={onSubmitForm}>
 					<label htmlFor="schoolNameInput">School:</label>
 					<input
-						onChange={handelChange}
+						onChange={handleChange}
 						name="schoolName"
 						value={info.edited.schoolName}
 						type="text"
@@ -203,7 +186,7 @@ const EducationForm = () => {
 					/>
 					<label htmlFor="degreeInput">Degree:</label>
 					<input
-						onChange={handelChange}
+						onChange={handleChange}
 						value={info.edited.degree}
 						name="degree"
 						type="text"
@@ -211,7 +194,7 @@ const EducationForm = () => {
 					/>
 					<label htmlFor="startDateInput">Start Date:</label>
 					<input
-						onChange={handelChange}
+						onChange={handleChange}
 						name="startDate"
 						value={info.edited.startDate}
 						type="text"
@@ -219,7 +202,7 @@ const EducationForm = () => {
 					/>
 					<label htmlFor="endDateInput">End Date:</label>
 					<input
-						onChange={handelChange}
+						onChange={handleChange}
 						value={info.edited.endDate}
 						name="endDate"
 						type="text"
@@ -233,7 +216,7 @@ const EducationForm = () => {
 		return (
 			<div>
 				<Education
-					info={info}
+					info={schools}
 					editOnClick={editOnClick}
 					deleteOnclick={deleteOnclick}
 				/>
