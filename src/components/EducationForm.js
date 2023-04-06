@@ -18,7 +18,7 @@ const EducationForm = () => {
 		startDate: "",
 		endDate: "",
 	});
-	const [schools, setSchools] = useState([defaultSchool]);
+	const [objArray, setObjArray] = useState([defaultSchool]);
 	const [displayForm, setDisplayForm] = useState(false);
 	const [edit, setEdit] = useState(false);
 
@@ -30,66 +30,35 @@ const EducationForm = () => {
 		setBuffer({ id: uniqid() });
 	};
 
-	//Need to change
-	const deleteOnclick = (e) => {
-		/*	
-		const schoolId = e.target.id.replace("delete-", "");
-		const newSchools = info.schools.filter(
-			(school) => school.id !== schoolId
-		);
-		setInfo({
-			...info,
-			schools: newSchools,
-		});
-	*/
+	const deleteOnclick = (key) => {
+		const selected = objArray.filter((x) => x.id === key)[0];
+		const newArray = objArray.filter((obj) => obj.id !== selected.id);
+	};
+
+	const getSelectedId = (key) => {
+		return objArray.filter((x) => x.id === key)[0];
 	};
 
 	const loadBuffer = (key) => {
-		const selected = schools.filter((x) => x.id === key)[0];
+		const selected = objArray.filter((x) => x.id === key)[0];
 		setBuffer({ ...selected });
 	};
 
-	//Need to change
-	const editOnClick = (e) => {
-		console.log(e.target.parentNode);
-		/*	
-		const schoolId = e.target.id;
-		if (info.edit === true) return;
-		info.schools.forEach((school) => {
-			if (school.id === schoolId) {
-				setInfo({
-					...info,
-					edit: true,
-					edited: {
-						id: schoolId,
-						schoolName: school.schoolName,
-						degree: school.degree,
-						startDate: school.startDate,
-						endDate: school.endDate,
-					},
-				});
-			}
-		});
-	*/
-	};
-
-	//Need to test
 	const handleChange = (key, value) => {
 		setBuffer((buffer) => {
 			return { ...buffer, [key]: value };
 		});
 	};
 
-	//need to change
 	const onSubmitForm = (e) => {
 		e.preventDefault();
-		const array = schools.concat(buffer);
-		setSchools(array);
+		const array = objArray.concat(buffer);
+		setObjArray(array);
 		setDisplayForm(false);
 		newStateObj();
 	};
 
-	if (displayForm === true || schools.length === 0) {
+	if (displayForm === true || objArray.length === 0) {
 		return (
 			<div>
 				<h3>Add New Education Info</h3>
@@ -145,8 +114,8 @@ const EducationForm = () => {
 					<button type="submit">Save</button>
 				</form>
 				<Education
-					info={schools}
-					editOnClick={editOnClick}
+					info={objArray}
+					loadBuffer={loadBuffer}
 					deleteOnclick={deleteOnclick}
 				/>
 				<button onClick={openForm}>Add More</button>
@@ -156,7 +125,7 @@ const EducationForm = () => {
 		return (
 			<div>
 				<Education
-					info={schools}
+					info={objArray}
 					loadBuffer={loadBuffer}
 					deleteOnclick={deleteOnclick}
 				/>
