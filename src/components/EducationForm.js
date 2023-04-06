@@ -11,6 +11,11 @@ const EducationForm = () => {
 		endDate: "2015",
 	};
 
+	const [buffer, setBuffer] = useState({});
+	const [schools, setSchools] = useState([defaultSchool]);
+	const [displayForm, setDisplayForm] = useState(false);
+	const [edit, setEdit] = useState(false);
+
 	const [info, setInfo] = useState({
 		school: {
 			id: uniqid(),
@@ -32,8 +37,7 @@ const EducationForm = () => {
 	});
 
 	const openForm = () => {
-		setInfo({
-			...info,
+		setDisplayForm({
 			displayForm: true,
 		});
 	};
