@@ -84,44 +84,54 @@ const EducationForm = () => {
 			<div>
 				<h3>Add New Education Info</h3>
 				<form onSubmit={onSubmitForm}>
-					<label htmlFor="schoolNameInput">School:</label>
-					<input
-						onChange={(e) =>
-							handleChange("schoolName", e.target.value)
-						}
-						value={buffer.schoolName}
-						name="schoolName"
-						type="text"
-						id="schoolNameInput"
-					/>
-					<label htmlFor="degreeInput">Degree:</label>
-					<input
-						onChange={(e) => handleChange("degree", e.target.value)}
-						value={buffer.degree}
-						name="degree"
-						type="text"
-						id="degreeInput"
-					/>
-					<label htmlFor="startDateInput">Start Date:</label>
-					<input
-						onChange={(e) =>
-							handleChange("startDate", e.target.value)
-						}
-						value={buffer.startDate}
-						name="startDate"
-						type="text"
-						id="startDateInput"
-					/>
-					<label htmlFor="endDateInput">End Date:</label>
-					<input
-						onChange={(e) =>
-							handleChange("endDate", e.target.value)
-						}
-						value={buffer.endDate}
-						name="endDate"
-						type="text"
-						id="endDateInput"
-					/>
+					<p>
+						<label htmlFor="schoolNameInput">School:</label>
+						<input
+							onChange={(e) =>
+								handleChange("schoolName", e.target.value)
+							}
+							value={buffer.schoolName}
+							name="schoolName"
+							type="text"
+							id="schoolNameInput"
+						/>
+					</p>
+					<p>
+						<label htmlFor="degreeInput">Degree:</label>
+						<input
+							onChange={(e) =>
+								handleChange("degree", e.target.value)
+							}
+							value={buffer.degree}
+							name="degree"
+							type="text"
+							id="degreeInput"
+						/>
+					</p>
+					<p>
+						<label htmlFor="startDateInput">Start Date:</label>
+						<input
+							onChange={(e) =>
+								handleChange("startDate", e.target.value)
+							}
+							value={buffer.startDate}
+							name="startDate"
+							type="text"
+							id="startDateInput"
+						/>
+					</p>
+					<p>
+						<label htmlFor="endDateInput">End Date:</label>
+						<input
+							onChange={(e) =>
+								handleChange("endDate", e.target.value)
+							}
+							value={buffer.endDate}
+							name="endDate"
+							type="text"
+							id="endDateInput"
+						/>
+					</p>
 					<button type="submit">Save</button>
 				</form>
 				<Education
