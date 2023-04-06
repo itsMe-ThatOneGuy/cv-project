@@ -4,17 +4,25 @@ const Education = (props) => {
 			<h2>Education Info</h2>
 			{props.info.map((school) => {
 				return (
-					<div key={school.id}>
+					<div key={school.id} data-obj-id={school.id}>
 						<p>{school.schoolName}</p>
 						<p>Degree: {school.degree}</p>
 						<p>Start Date: {school.startDate}</p>
 						<p>End Date: {school.endDate}</p>
-						<button onClick={props.editOnClick} id={school.id}>
+						<button
+							onClick={(e) =>
+								props.loadBuffer(
+									e.currentTarget.parentNode.dataset.objId
+								)
+							}>
 							Edit
 						</button>
 						<button
-							onClick={props.deleteOnclick}
-							id={`delete-${school.id}`}>
+							onClick={(e) =>
+								props.deleteOnclick(
+									e.currentTarget.parentNode.dataset.objId
+								)
+							}>
 							Delete
 						</button>
 					</div>
