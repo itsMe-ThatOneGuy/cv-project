@@ -12,7 +12,7 @@ const EducationForm = () => {
 	};
 
 	const [buffer, setBuffer] = useState({});
-	const [schools, setSchools] = useState([defaultSchool]);
+	const [schools, setSchools] = useState([]);
 	const [displayForm, setDisplayForm] = useState(false);
 	const [edit, setEdit] = useState(false);
 
@@ -63,11 +63,15 @@ const EducationForm = () => {
 
 	//Need to test
 	const handleChange = (key, value) => {
-		setBuffer({ ...buffer, [key]: value });
+		setBuffer((buffer) => {
+			return { ...buffer, [key]: value };
+		});
 	};
 
 	//need to change
 	const onSubmitForm = (e) => {
+		e.preventDefault();
+		console.log(buffer);
 		/*	
 		e.preventDefault();
 		if (info.edit === false) {
@@ -125,28 +129,38 @@ const EducationForm = () => {
 				<form onSubmit={onSubmitForm}>
 					<label htmlFor="schoolNameInput">School:</label>
 					<input
-						onChange={handleChange}
+						onChange={(e) =>
+							handleChange("schoolName", e.target.value)
+						}
+						value={buffer.schoolName}
 						name="schoolName"
 						type="text"
 						id="schoolNameInput"
 					/>
 					<label htmlFor="degreeInput">Degree:</label>
 					<input
-						onChange={handleChange}
+						onChange={(e) => handleChange("degree", e.target.value)}
+						value={buffer.degree}
 						name="degree"
 						type="text"
 						id="degreeInput"
 					/>
 					<label htmlFor="startDateInput">Start Date:</label>
 					<input
-						onChange={handleChange}
+						onChange={(e) =>
+							handleChange("startDate", e.target.value)
+						}
+						value={buffer.startDate}
 						name="startDate"
 						type="text"
 						id="startDateInput"
 					/>
 					<label htmlFor="endDateInput">End Date:</label>
 					<input
-						onChange={handleChange}
+						onChange={(e) =>
+							handleChange("endDate", e.target.value)
+						}
+						value={buffer.endDate}
 						name="endDate"
 						type="text"
 						id="endDateInput"
