@@ -10,6 +10,7 @@ const EducationForm = () => {
 		startDate: "2013",
 		endDate: "2015",
 	};
+	console.log(defaultSchool);
 
 	const [buffer, setBuffer] = useState({});
 	const [schools, setSchools] = useState([defaultSchool]);
