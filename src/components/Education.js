@@ -2,7 +2,7 @@ const Education = (props) => {
 	return (
 		<div>
 			<h2>Education Info</h2>
-			{props.info.schools.map((school) => {
+			{props.info.map((school) => {
 				return (
 					<div key={school.id}>
 						<p>{school.schoolName}</p>
@@ -12,7 +12,9 @@ const Education = (props) => {
 						<button onClick={props.editOnClick} id={school.id}>
 							Edit
 						</button>
-						<button onClick={props.deleteOnclick} id={`delete-${school.id}`}>
+						<button
+							onClick={props.deleteOnclick}
+							id={`delete-${school.id}`}>
 							Delete
 						</button>
 					</div>
