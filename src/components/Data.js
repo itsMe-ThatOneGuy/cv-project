@@ -24,12 +24,6 @@ const defaultEmploymentData = {
 	endDate: "2023",
 };
 
-const defaultGeneralInfoBuffer = {
-	name: "",
-	phone: "",
-	email: "",
-};
-
 const defautlEducationBuffer = {
 	schoolName: "",
 	degree: "",
@@ -51,5 +45,4 @@ export {
 	defautlEducationBuffer,
 	defautlEmploymentBuffer,
 	defaultGeneralInfoData,
-	defaultGeneralInfoBuffer,
 };
