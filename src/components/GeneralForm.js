@@ -1,17 +1,12 @@
 import General from "./General";
-import { useState, useEffect } from "react";
-import uniqid from "uniqid";
-import { defaultGeneralInfoData, defaultGeneralInfoBuffer } from "./Data";
+import { useState } from "react";
+import { defaultGeneralInfoData } from "./Data";
 
 const GeneralForm = () => {
 	const [buffer, setBuffer] = useState({});
 	const [objArray, setObjArray] = useState([defaultGeneralInfoData]);
 	const [displayForm, setDisplayForm] = useState(false);
 	const [formType, setFormType] = useState(null);
-
-	useEffect(() => {
-		newBufferObj();
-	}, []);
 
 	const openForm = () => {
 		setDisplayForm(true);
@@ -22,33 +17,15 @@ const GeneralForm = () => {
 		setFormType(null);
 	};
 
-	const newBufferObj = () => {
-		setBuffer({
-			...defaultGeneralInfoBuffer,
-			id: uniqid(),
-		});
-	};
-
 	const getIndexOfObj = (key) => {
 		return objArray.findIndex((obj) => obj.id === key.id);
-	};
-
-	const deleteOnclick = (key) => {
-		const selected = getSelectedId(key);
-		const newArray = objArray.filter((obj) => obj.id !== selected.id);
-		setObjArray(newArray);
-	};
-
-	const addOnClick = () => {
-		openForm();
-		setFormType("add");
 	};
 
 	const editOnClick = (key) => {
 		if (displayForm === false) {
 			loadBuffer(key);
 			openForm();
-			setFormType("edit");
+			setFormType("Edit");
 		}
 	};
 
@@ -77,15 +54,14 @@ const GeneralForm = () => {
 		}
 		setObjArray(array);
 		resetForm();
-		newBufferObj();
 	};
 
-	if (displayForm === true || objArray.length === 0) {
-		return <General info={buffer} editOnClick={editOnClick} />;
+	if (displayForm === false) {
+		return <General info={objArray[0]} editOnClick={editOnClick} />;
 	} else {
 		return (
 			<div>
-				<h2>Edit General Info</h2>
+				<h2>{formType} General Info</h2>
 				<form onSubmit={onSubmitForm}>
 					<p>
 						<label htmlFor="nameInput">Name:</label>
@@ -115,7 +91,7 @@ const GeneralForm = () => {
 						<label htmlFor="emailInput">Email:</label>
 						<input
 							onChange={(e) =>
-								handleChange("name", e.target.value)
+								handleChange("email", e.target.value)
 							}
 							value={buffer.email}
 							name="email"
