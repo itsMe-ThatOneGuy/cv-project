@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Employment from "./Employment";
+import uniqid from "uniqid";
 import { defaultEmploymentData, defautlEmploymentBuffer } from "./Data";
 
 const EmploymentForm = () => {
@@ -24,6 +25,7 @@ const EmploymentForm = () => {
 	const newBufferObj = () => {
 		setBuffer({
 			...defautlEmploymentBuffer,
+			id: uniqid(),
 		});
 	};
 

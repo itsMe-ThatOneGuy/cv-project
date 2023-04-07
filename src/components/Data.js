@@ -18,7 +18,6 @@ const defaultEmploymentData = {
 };
 
 const defautlEducationBuffer = {
-	id: uniqid(),
 	schoolName: "",
 	degree: "",
 	startDate: "",
@@ -26,7 +25,6 @@ const defautlEducationBuffer = {
 };
 
 const defautlEmploymentBuffer = {
-	id: uniqid(),
 	employer: "",
 	title: "",
 	responsibilities: "",

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Education from "./Education";
+import uniqid from "uniqid";
 import { defaultSchoolData, defautlEducationBuffer } from "./Data";
 
 const EducationForm = () => {
@@ -24,6 +25,7 @@ const EducationForm = () => {
 	const newBufferObj = () => {
 		setBuffer({
 			...defautlEducationBuffer,
+			id: uniqid(),
 		});
 	};
 
