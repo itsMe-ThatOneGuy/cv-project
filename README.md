@@ -1,6 +1,6 @@
 # CV Project
 
-I made this as part of The Odin Project [course](hhttps://www.theodinproject.com/lessons/node-path-javascript-cv-application)
+I made this as part of The Odin Project [course](https://www.theodinproject.com/lessons/node-path-javascript-cv-application)
 
 ## [Live Preview](https://itsme-thatoneguy.github.io/cv-project/)
 
