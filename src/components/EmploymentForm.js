@@ -152,19 +152,37 @@ const EmploymentForm = () => {
 				<h3>Add New Employment Info</h3>
 				<form onSubmit={onSubmitForm}>
 					<label htmlFor="employerInput">Employer:</label>
-					<input onChange={handelChange} type="text" id="employerInput" />
+					<input
+						onChange={handelChange}
+						type="text"
+						id="employerInput"
+					/>
 					<label htmlFor="titleInput">Title:</label>
-					<input onChange={handelChange} type="text" id="titleInput" />
-					<label htmlFor="responsibilitiesInput">Responsibilities:</label>
+					<input
+						onChange={handelChange}
+						type="text"
+						id="titleInput"
+					/>
+					<label htmlFor="responsibilitiesInput">
+						Responsibilities:
+					</label>
 					<input
 						onChange={handelChange}
 						type="text"
 						id="responsibilitiesInput"
 					/>
 					<label htmlFor="startDateInput">Start Date:</label>
-					<input onChange={handelChange} type="text" id="startDateInput" />
+					<input
+						onChange={handelChange}
+						type="text"
+						id="startDateInput"
+					/>
 					<label htmlFor="endDateInput">End Date:</label>
-					<input onChange={handelChange} type="text" id="endDateInput" />
+					<input
+						onChange={handelChange}
+						type="text"
+						id="endDateInput"
+					/>
 					<button type="submit">Save</button>
 				</form>
 				<Employment
@@ -194,7 +212,9 @@ const EmploymentForm = () => {
 						type="text"
 						id="titleInput"
 					/>
-					<label htmlFor="responsibilitiesInput">Responsibilities:</label>
+					<label htmlFor="responsibilitiesInput">
+						Responsibilities:
+					</label>
 					<input
 						onChange={handelChange}
 						value={info.edited.responsibilities}
