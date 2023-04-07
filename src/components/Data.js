@@ -17,4 +17,26 @@ const defaultEmploymentData = {
 	endDate: "2023",
 };
 
-export { defaultSchoolData, defaultEmploymentData };
+const defautlEducationBuffer = {
+	id: uniqid(),
+	schoolName: "",
+	degree: "",
+	startDate: "",
+	endDate: "",
+};
+
+const defautlEmploymentBuffer = {
+	id: uniqid(),
+	employer: "",
+	title: "",
+	responsibilities: "",
+	startDate: "",
+	endDate: "",
+};
+
+export {
+	defaultSchoolData,
+	defaultEmploymentData,
+	defautlEducationBuffer,
+	defautlEmploymentBuffer,
+};
