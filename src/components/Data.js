@@ -1,6 +1,6 @@
 import uniqid from "uniqid";
 
-const defaultGeneralInfo = {
+const defaultGeneralInfoData = {
 	id: uniqid(),
 	name: "Jone Doe",
 	phone: "(123) 123-1234",
@@ -24,7 +24,7 @@ const defaultEmploymentData = {
 	endDate: "2023",
 };
 
-const defaultGeneralBuffer = {
+const defaultGeneralInfoBuffer = {
 	name: "",
 	phone: "",
 	email: "",
@@ -50,6 +50,6 @@ export {
 	defaultEmploymentData,
 	defautlEducationBuffer,
 	defautlEmploymentBuffer,
-	defaultGeneralInfo,
-	defaultGeneralBuffer,
+	defaultGeneralInfoData,
+	defaultGeneralInfoBuffer,
 };
