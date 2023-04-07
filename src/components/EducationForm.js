@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Education from "./Education";
 import uniqid from "uniqid";
-import { defaultSchoolData } from "./Data";
+import { defaultSchoolData, defautlEducationBuffer } from "./Data";
 
 const EducationForm = () => {
 	const [buffer, setBuffer] = useState({});
@@ -24,11 +24,8 @@ const EducationForm = () => {
 
 	const newBufferObj = () => {
 		setBuffer({
+			...defautlEducationBuffer,
 			id: uniqid(),
-			schoolName: "",
-			degree: "",
-			startDate: "",
-			endDate: "",
 		});
 	};
 
@@ -86,6 +83,12 @@ const EducationForm = () => {
 	if (displayForm === true || objArray.length === 0) {
 		return (
 			<div>
+				<Education
+					info={objArray}
+					editOnClick={editOnClick}
+					deleteOnclick={deleteOnclick}
+				/>
+				<button onClick={addOnClick}>Add More</button>
 				{formType === "add" ? (
 					<h3>Add New Education Info</h3>
 				) : (
@@ -142,12 +145,6 @@ const EducationForm = () => {
 					</p>
 					<button type="submit">Save</button>
 				</form>
-				<Education
-					info={objArray}
-					editOnClick={editOnClick}
-					deleteOnclick={deleteOnclick}
-				/>
-				<button onClick={addOnClick}>Add More</button>
 			</div>
 		);
 	} else {

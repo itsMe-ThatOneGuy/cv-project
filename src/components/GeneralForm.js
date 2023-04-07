@@ -49,27 +49,33 @@ const GeneralForm = () => {
 			<div>
 				<h2>General Info</h2>
 				<form onSubmit={onSubmitForm}>
-					<label htmlFor="nameInput">Name:</label>
-					<input
-						onChange={handelChange}
-						value={info.name}
-						type="text"
-						id="nameInput"
-					/>
-					<label htmlFor="phoneInput">Phone:</label>
-					<input
-						onChange={handelChange}
-						value={info.phone}
-						type="text"
-						id="phoneInput"
-					/>
-					<label htmlFor="emailInput">Email:</label>
-					<input
-						onChange={handelChange}
-						value={info.email}
-						type="text"
-						id="emailInput"
-					/>
+					<p>
+						<label htmlFor="nameInput">Name:</label>
+						<input
+							onChange={handelChange}
+							value={info.name}
+							type="text"
+							id="nameInput"
+						/>
+					</p>
+					<p>
+						<label htmlFor="phoneInput">Phone:</label>
+						<input
+							onChange={handelChange}
+							value={info.phone}
+							type="text"
+							id="phoneInput"
+						/>
+					</p>
+					<p>
+						<label htmlFor="emailInput">Email:</label>
+						<input
+							onChange={handelChange}
+							value={info.email}
+							type="text"
+							id="emailInput"
+						/>
+					</p>
 					<button type="submit">Save</button>
 				</form>
 			</div>

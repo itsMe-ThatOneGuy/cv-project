@@ -1,240 +1,162 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Employment from "./Employment";
 import uniqid from "uniqid";
+import { defaultEmploymentData, defautlEmploymentBuffer } from "./Data";
 
 const EmploymentForm = () => {
-	const [info, setInfo] = useState({
-		job: {
-			id: uniqid(),
-			employer: "",
-			title: "",
-			responsibilities: "",
-			startDate: "",
-			endDate: "",
-		},
-		jobs: [
-			{
-				id: uniqid(),
-				employer: "Test Employer",
-				title: "Full Stack Developer",
-				responsibilities: "Coding all the things",
-				startDate: "2020",
-				endDate: "2023",
-			},
-		],
-		displayForm: false,
-		edit: false,
-		edited: {
-			id: "",
-			employer: "",
-			title: "",
-			responsibilities: "",
-			startDate: "",
-			endDate: "",
-		},
-	});
+	const [buffer, setBuffer] = useState({});
+	const [objArray, setObjArray] = useState([defaultEmploymentData]);
+	const [displayForm, setDisplayForm] = useState(false);
+	const [formType, setFormType] = useState(null);
+
+	useEffect(() => {
+		newBufferObj();
+	}, []);
 
 	const openForm = () => {
-		setInfo({
-			...info,
-			displayForm: true,
+		setDisplayForm(true);
+	};
+
+	const resetForm = () => {
+		setDisplayForm(false);
+		setFormType(null);
+	};
+
+	const newBufferObj = () => {
+		setBuffer({
+			...defautlEmploymentBuffer,
+			id: uniqid(),
 		});
 	};
 
-	const deleteOnclick = (e) => {
-		const jobId = e.target.id.replace("delete-", "");
-		const newJobs = info.jobs.filter((job) => job.id !== jobId);
-		setInfo({
-			...info,
-			jobs: newJobs,
-		});
+	const getIndexOfObj = (key) => {
+		return objArray.findIndex((obj) => obj.id === key.id);
 	};
 
-	const editOnClick = (e) => {
-		const jobId = e.target.id;
-		if (info.edit === true) return;
-		info.jobs.forEach((job) => {
-			if (job.id === jobId) {
-				setInfo({
-					...info,
-					edit: true,
-					edited: {
-						id: jobId,
-						employer: job.employer,
-						title: job.title,
-						responsibilities: job.responsibilities,
-						startDate: job.startDate,
-						endDate: job.endDate,
-					},
-				});
-			}
-		});
+	const deleteOnclick = (key) => {
+		const selected = getSelectedId(key);
+		const newArray = objArray.filter((obj) => obj.id !== selected.id);
+		setObjArray(newArray);
 	};
 
-	const handelChange = (e) => {
-		if (info.edit === true) {
-			for (const [key] of Object.entries(info.edited)) {
-				if (e.target.id === `${key}Input`) {
-					setInfo({
-						...info,
-						edited: { ...info.edited, [key]: e.target.value },
-					});
-				}
-			}
-		} else {
-			for (const [key] of Object.entries(info.job)) {
-				if (e.target.id === `${key}Input`) {
-					setInfo({
-						...info,
-						job: { ...info.job, [key]: e.target.value },
-					});
-				}
-			}
+	const addOnClick = () => {
+		openForm();
+		setFormType("add");
+	};
+
+	const editOnClick = (key) => {
+		if (displayForm === false) {
+			loadBuffer(key);
+			openForm();
+			setFormType("edit");
 		}
+	};
+
+	const getSelectedId = (key) => {
+		return objArray.filter((x) => x.id === key)[0];
+	};
+
+	const loadBuffer = (key) => {
+		const selected = getSelectedId(key);
+		setBuffer({ ...selected });
+	};
+
+	const handleChange = (key, value) => {
+		setBuffer((buffer) => {
+			return { ...buffer, [key]: value };
+		});
 	};
 
 	const onSubmitForm = (e) => {
 		e.preventDefault();
-		if (info.edit === false) {
-			const jobs = info.jobs.concat(info.job);
-			setInfo({
-				job: {
-					id: uniqid(),
-					employer: "",
-					title: "",
-					responsibilities: "",
-					startDate: "",
-					endDate: "",
-				},
-				jobs: jobs,
-				displayForm: false,
-				edit: false,
-				edited: {
-					id: "",
-					employer: "",
-					title: "",
-					responsibilities: "",
-					startDate: "",
-					endDate: "",
-				},
-			});
+		let array = [...objArray];
+		if (objArray.some((obj) => obj.id === buffer.id)) {
+			array.splice(getIndexOfObj(buffer), 1, buffer);
 		} else {
-			const old = info.jobs.find((item) => item.id === info.edited.id);
-			const newJobs = info.jobs
-				.filter((item) => item.id !== old.id)
-				.concat(info.edited);
-			setInfo({
-				jobs: newJobs,
-				job: {
-					id: uniqid(),
-					employer: "",
-					title: "",
-					responsibilities: "",
-					startDate: "",
-					endDate: "",
-				},
-				edit: false,
-				edited: {
-					id: "",
-					employer: "",
-					title: "",
-					responsibilities: "",
-					startDate: "",
-					endDate: "",
-				},
-			});
+			array = objArray.concat(buffer);
 		}
+		setObjArray(array);
+		resetForm();
+		newBufferObj();
 	};
 
-	if (info.displayForm === true || info.jobs.length === 0) {
+	if (displayForm === true || objArray.length === 0) {
 		return (
 			<div>
-				<h3>Add New Employment Info</h3>
-				<form onSubmit={onSubmitForm}>
-					<label htmlFor="employerInput">Employer:</label>
-					<input
-						onChange={handelChange}
-						type="text"
-						id="employerInput"
-					/>
-					<label htmlFor="titleInput">Title:</label>
-					<input
-						onChange={handelChange}
-						type="text"
-						id="titleInput"
-					/>
-					<label htmlFor="responsibilitiesInput">
-						Responsibilities:
-					</label>
-					<input
-						onChange={handelChange}
-						type="text"
-						id="responsibilitiesInput"
-					/>
-					<label htmlFor="startDateInput">Start Date:</label>
-					<input
-						onChange={handelChange}
-						type="text"
-						id="startDateInput"
-					/>
-					<label htmlFor="endDateInput">End Date:</label>
-					<input
-						onChange={handelChange}
-						type="text"
-						id="endDateInput"
-					/>
-					<button type="submit">Save</button>
-				</form>
 				<Employment
-					info={info}
+					info={objArray}
 					editOnClick={editOnClick}
 					deleteOnclick={deleteOnclick}
 				/>
-				<button onClick={openForm}>Add More</button>
-			</div>
-		);
-	} else if (info.edit === true) {
-		return (
-			<div>
-				<h3>Edit Selected Employment Info</h3>
+				<button onClick={addOnClick}>Add More</button>
+				{formType === "add" ? (
+					<h3>Add New Employment Info</h3>
+				) : (
+					<h3>Edit Employment Info</h3>
+				)}
 				<form onSubmit={onSubmitForm}>
-					<label htmlFor="employerInput">Employer:</label>
-					<input
-						onChange={handelChange}
-						value={info.edited.employer}
-						type="text"
-						id="employerInput"
-					/>
-					<label htmlFor="titleInput">Title:</label>
-					<input
-						onChange={handelChange}
-						value={info.edited.title}
-						type="text"
-						id="titleInput"
-					/>
-					<label htmlFor="responsibilitiesInput">
-						Responsibilities:
-					</label>
-					<input
-						onChange={handelChange}
-						value={info.edited.responsibilities}
-						type="text"
-						id="responsibilitiesInput"
-					/>
-					<label htmlFor="startDateInput">Start Date:</label>
-					<input
-						onChange={handelChange}
-						value={info.edited.startDate}
-						type="text"
-						id="startDateInput"
-					/>
-					<label htmlFor="endDateInput">End Date:</label>
-					<input
-						onChange={handelChange}
-						value={info.edited.endDate}
-						type="text"
-						id="endDateInput"
-					/>
+					<p>
+						<label htmlFor="employerInput">Employer:</label>
+						<input
+							onChange={(e) =>
+								handleChange("employer", e.target.value)
+							}
+							value={buffer.employer}
+							name="employer"
+							type="text"
+							id="employerInput"
+						/>
+					</p>
+					<p>
+						<label htmlFor="titleInput">Title:</label>
+						<input
+							onChange={(e) =>
+								handleChange("title", e.target.value)
+							}
+							value={buffer.title}
+							name="title"
+							type="text"
+							id="titleInput"
+						/>
+					</p>
+					<p>
+						<label htmlFor="responsibilitiesInput">
+							Responsibilities:
+						</label>
+						<input
+							onChange={(e) =>
+								handleChange("responsibilities", e.target.value)
+							}
+							value={buffer.responsibilities}
+							name="responsibilities"
+							type="text"
+							id="responsibilitiesInput"
+						/>
+					</p>
+					<p>
+						<label htmlFor="startDateInput">Start Date:</label>
+						<input
+							onChange={(e) =>
+								handleChange("startDate", e.target.value)
+							}
+							value={buffer.startDate}
+							name="startDate"
+							type="text"
+							id="startDateInput"
+						/>
+					</p>
+					<p>
+						<label htmlFor="endDateInput">End Date:</label>
+						<input
+							onChange={(e) =>
+								handleChange("endDate", e.target.value)
+							}
+							value={buffer.endDate}
+							name="endDate"
+							type="text"
+							id="endDateInput"
+						/>
+					</p>
 					<button type="submit">Save</button>
 				</form>
 			</div>
@@ -243,11 +165,11 @@ const EmploymentForm = () => {
 		return (
 			<div>
 				<Employment
-					info={info}
+					info={objArray}
 					editOnClick={editOnClick}
 					deleteOnclick={deleteOnclick}
 				/>
-				<button onClick={openForm}>Add More</button>
+				<button onClick={addOnClick}>Add More</button>
 			</div>
 		);
 	}
