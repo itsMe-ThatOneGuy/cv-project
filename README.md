@@ -2,7 +2,7 @@
 
 I made this as part of The Odin Project [course](hhttps://www.theodinproject.com/lessons/node-path-javascript-cv-application)
 
-## [Live Preview]()
+## [Live Preview](https://itsme-thatoneguy.github.io/cv-project/)
 
 This is a basic CV form one could use when apply for a job.
 
