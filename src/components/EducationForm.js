@@ -81,6 +81,12 @@ const EducationForm = () => {
 	if (displayForm === true || objArray.length === 0) {
 		return (
 			<div>
+				<Education
+					info={objArray}
+					editOnClick={editOnClick}
+					deleteOnclick={deleteOnclick}
+				/>
+				<button onClick={addOnClick}>Add More</button>
 				{formType === "add" ? (
 					<h3>Add New Education Info</h3>
 				) : (
@@ -137,12 +143,6 @@ const EducationForm = () => {
 					</p>
 					<button type="submit">Save</button>
 				</form>
-				<Education
-					info={objArray}
-					editOnClick={editOnClick}
-					deleteOnclick={deleteOnclick}
-				/>
-				<button onClick={addOnClick}>Add More</button>
 			</div>
 		);
 	} else {

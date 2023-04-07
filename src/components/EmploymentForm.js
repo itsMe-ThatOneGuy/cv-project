@@ -81,6 +81,12 @@ const EmploymentForm = () => {
 	if (displayForm === true || objArray.length === 0) {
 		return (
 			<div>
+				<Employment
+					info={objArray}
+					editOnClick={editOnClick}
+					deleteOnclick={deleteOnclick}
+				/>
+				<button onClick={addOnClick}>Add More</button>
 				{formType === "add" ? (
 					<h3>Add New Employment Info</h3>
 				) : (
@@ -151,12 +157,6 @@ const EmploymentForm = () => {
 					</p>
 					<button type="submit">Save</button>
 				</form>
-				<Employment
-					info={objArray}
-					editOnClick={editOnClick}
-					deleteOnclick={deleteOnclick}
-				/>
-				<button onClick={addOnClick}>Add More</button>
 			</div>
 		);
 	} else {
