@@ -1,6 +1,6 @@
 import General from "./General";
 import { useState } from "react";
-import { defaultGeneralInfoData } from "./Data";
+import { defaultGeneralInfoData } from "../Utilites/Data";
 
 const GeneralForm = () => {
 	const [buffer, setBuffer] = useState({});

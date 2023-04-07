@@ -1,8 +1,8 @@
 import React from "react";
 import "./App.css";
-import EducationForm from "./components/EducationForm";
-import EmploymentForm from "./components/EmploymentForm";
-import GeneralForm from "./components/GeneralForm";
+import EducationForm from "./components/Education/EducationForm";
+import EmploymentForm from "./components/Employment/EmploymentForm";
+import GeneralForm from "./components/General/GeneralForm";
 
 const App = () => {
 	return (

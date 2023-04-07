@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
-import Education from "./Education";
+import Employment from "./Employment";
 import uniqid from "uniqid";
-import { defaultSchoolData, defautlEducationBuffer } from "./Data";
+import {
+	defaultEmploymentData,
+	defautlEmploymentBuffer,
+} from "../Utilites/Data";
 
-const EducationForm = () => {
+const EmploymentForm = () => {
 	const [buffer, setBuffer] = useState({});
-	const [objArray, setObjArray] = useState([defaultSchoolData]);
+	const [objArray, setObjArray] = useState([defaultEmploymentData]);
 	const [displayForm, setDisplayForm] = useState(false);
 	const [formType, setFormType] = useState(null);
 
@@ -24,7 +27,7 @@ const EducationForm = () => {
 
 	const newBufferObj = () => {
 		setBuffer({
-			...defautlEducationBuffer,
+			...defautlEmploymentBuffer,
 			id: uniqid(),
 		});
 	};
@@ -83,40 +86,54 @@ const EducationForm = () => {
 	if (displayForm === true || objArray.length === 0) {
 		return (
 			<div>
-				<Education
+				<Employment
 					info={objArray}
 					editOnClick={editOnClick}
 					deleteOnclick={deleteOnclick}
 				/>
 				<button onClick={addOnClick}>Add More</button>
 				{formType === "add" ? (
-					<h3>Add New Education Info</h3>
+					<h3>Add New Employment Info</h3>
 				) : (
-					<h3>Edit Education Info</h3>
+					<h3>Edit Employment Info</h3>
 				)}
 				<form onSubmit={onSubmitForm}>
 					<p>
-						<label htmlFor="schoolNameInput">School:</label>
+						<label htmlFor="employerInput">Employer:</label>
 						<input
 							onChange={(e) =>
-								handleChange("schoolName", e.target.value)
+								handleChange("employer", e.target.value)
 							}
-							value={buffer.schoolName}
-							name="schoolName"
+							value={buffer.employer}
+							name="employer"
 							type="text"
-							id="schoolNameInput"
+							id="employerInput"
 						/>
 					</p>
 					<p>
-						<label htmlFor="degreeInput">Degree:</label>
+						<label htmlFor="titleInput">Title:</label>
 						<input
 							onChange={(e) =>
-								handleChange("degree", e.target.value)
+								handleChange("title", e.target.value)
 							}
-							value={buffer.degree}
-							name="degree"
+							value={buffer.title}
+							name="title"
 							type="text"
-							id="degreeInput"
+							id="titleInput"
+						/>
+					</p>
+					<p>
+						<label htmlFor="responsibilitiesInput">
+							Responsibilities:
+						</label>
+						<input
+							onChange={(e) =>
+								handleChange("responsibilities", e.target.value)
+							}
+							value={buffer.responsibilities}
+							name="responsibilities"
+							type="text"
+							id="responsibilitiesInput"
 						/>
 					</p>
 					<p>
@@ -150,7 +167,7 @@ const EducationForm = () => {
 	} else {
 		return (
 			<div>
-				<Education
+				<Employment
 					info={objArray}
 					editOnClick={editOnClick}
 					deleteOnclick={deleteOnclick}
@@ -161,4 +178,4 @@ const EducationForm = () => {
 	}
 };
 
-export default EducationForm;
+export default EmploymentForm;
