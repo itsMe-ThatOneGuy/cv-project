@@ -1,29 +1,17 @@
-import { useState, useEffect } from "react";
-import Education from "./Education";
-import EducationForm from "./EducationForm copy";
-import uniqid from "uniqid";
-import { defaultSchoolData } from "./Data";
-
-const EducationContainer = () => {
-	const [buffer, setBuffer] = useState({});
-	const [objArray, setObjArray] = useState([defaultSchoolData]);
-	const [displayForm, setDisplayForm] = useState(false);
-
-	useEffect(() => {
-		newBufferObj();
-	}, []);
-
+export function useUtils() {
 	const openForm = () => {
 		setDisplayForm(true);
 	};
 
+	const resetForm = () => {
+		setDisplayForm(false);
+		setFormType(null);
+	};
+
 	const newBufferObj = () => {
 		setBuffer({
+			...defautlEducationBuffer,
 			id: uniqid(),
-			schoolName: "",
-			degree: "",
-			startDate: "",
-			endDate: "",
 		});
 	};
 
@@ -37,9 +25,17 @@ const EducationContainer = () => {
 		setObjArray(newArray);
 	};
 
-	const editOnClick = (key) => {
-		loadBuffer(key);
+	const addOnClick = () => {
 		openForm();
+		setFormType("add");
+	};
+
+	const editOnClick = (key) => {
+		if (displayForm === false) {
+			loadBuffer(key);
+			openForm();
+			setFormType("edit");
+		}
 	};
 
 	const getSelectedId = (key) => {
@@ -66,26 +62,16 @@ const EducationContainer = () => {
 			array = objArray.concat(buffer);
 		}
 		setObjArray(array);
-		setDisplayForm(false);
+		resetForm();
 		newBufferObj();
 	};
 
-	return (
-		<div>
-			<Education
-				info={objArray}
-				editOnClick={editOnClick}
-				deleteOnclick={deleteOnclick}
-			/>
-			<EducationForm
-				displayForm={displayForm}
-				buffer={buffer}
-				onSubmitForm={onSubmitForm}
-				handleChange={handleChange}
-			/>
-			<button onClick={openForm}>Add More</button>
-		</div>
-	);
-};
-
-export default EducationContainer;
+	return {
+		deleteOnclick,
+		addOnClick,
+		editOnClick,
+		handleChange,
+		onSubmitForm,
+		newBufferObj,
+	};
+}

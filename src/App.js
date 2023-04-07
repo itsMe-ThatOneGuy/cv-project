@@ -3,6 +3,7 @@ import "./App.css";
 import EducationForm from "./components/EducationForm";
 import EmploymentForm from "./components/EmploymentForm";
 import GeneralForm from "./components/GeneralForm";
+import EducationContainer from "./components/Education/EducationContainer";
 
 const App = () => {
 	return (
@@ -11,7 +12,7 @@ const App = () => {
 				<h1>CV-App</h1>
 			</header>
 			<GeneralForm />
-			<EducationForm />
+			<EducationContainer />
 			<EmploymentForm />
 			<footer>
 				<p>
