@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Employment from "./Employment";
-import uniqid from "uniqid";
-import { defaultEmploymentData } from "./Data";
+import { defaultEmploymentData, defautlEmploymentBuffer } from "./Data";
 
 const EmploymentForm = () => {
 	const [buffer, setBuffer] = useState({});
@@ -24,12 +23,7 @@ const EmploymentForm = () => {
 
 	const newBufferObj = () => {
 		setBuffer({
-			id: uniqid(),
-			employer: "",
-			title: "",
-			responsibilities: "",
-			startDate: "",
-			endDate: "",
+			...defautlEmploymentBuffer,
 		});
 	};
 
@@ -93,56 +87,68 @@ const EmploymentForm = () => {
 					<h3>Edit Employment Info</h3>
 				)}
 				<form onSubmit={onSubmitForm}>
-					<label htmlFor="employerInput">Employer:</label>
-					<input
-						onChange={(e) =>
-							handleChange("employer", e.target.value)
-						}
-						value={buffer.employer}
-						name="employer"
-						type="text"
-						id="employerInput"
-					/>
-					<label htmlFor="titleInput">Title:</label>
-					<input
-						onChange={(e) => handleChange("title", e.target.value)}
-						value={buffer.title}
-						name="title"
-						type="text"
-						id="titleInput"
-					/>
-					<label htmlFor="responsibilitiesInput">
-						Responsibilities:
-					</label>
-					<input
-						onChange={(e) =>
-							handleChange("responsibilities", e.target.value)
-						}
-						value={buffer.responsibilities}
-						name="responsibilities"
-						type="text"
-						id="responsibilitiesInput"
-					/>
-					<label htmlFor="startDateInput">Start Date:</label>
-					<input
-						onChange={(e) =>
-							handleChange("startDate", e.target.value)
-						}
-						value={buffer.startDate}
-						name="startDate"
-						type="text"
-						id="startDateInput"
-					/>
-					<label htmlFor="endDateInput">End Date:</label>
-					<input
-						onChange={(e) =>
-							handleChange("endDate", e.target.value)
-						}
-						value={buffer.endDate}
-						name="endDate"
-						type="text"
-						id="endDateInput"
-					/>
+					<p>
+						<label htmlFor="employerInput">Employer:</label>
+						<input
+							onChange={(e) =>
+								handleChange("employer", e.target.value)
+							}
+							value={buffer.employer}
+							name="employer"
+							type="text"
+							id="employerInput"
+						/>
+					</p>
+					<p>
+						<label htmlFor="titleInput">Title:</label>
+						<input
+							onChange={(e) =>
+								handleChange("title", e.target.value)
+							}
+							value={buffer.title}
+							name="title"
+							type="text"
+							id="titleInput"
+						/>
+					</p>
+					<p>
+						<label htmlFor="responsibilitiesInput">
+							Responsibilities:
+						</label>
+						<input
+							onChange={(e) =>
+								handleChange("responsibilities", e.target.value)
+							}
+							value={buffer.responsibilities}
+							name="responsibilities"
+							type="text"
+							id="responsibilitiesInput"
+						/>
+					</p>
+					<p>
+						<label htmlFor="startDateInput">Start Date:</label>
+						<input
+							onChange={(e) =>
+								handleChange("startDate", e.target.value)
+							}
+							value={buffer.startDate}
+							name="startDate"
+							type="text"
+							id="startDateInput"
+						/>
+					</p>
+					<p>
+						<label htmlFor="endDateInput">End Date:</label>
+						<input
+							onChange={(e) =>
+								handleChange("endDate", e.target.value)
+							}
+							value={buffer.endDate}
+							name="endDate"
+							type="text"
+							id="endDateInput"
+						/>
+					</p>
 					<button type="submit">Save</button>
 				</form>
 				<Employment

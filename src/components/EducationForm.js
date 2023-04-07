@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Education from "./Education";
-import uniqid from "uniqid";
-import { defaultSchoolData } from "./Data";
+import { defaultSchoolData, defautlEducationBuffer } from "./Data";
 
 const EducationForm = () => {
 	const [buffer, setBuffer] = useState({});
@@ -24,11 +23,7 @@ const EducationForm = () => {
 
 	const newBufferObj = () => {
 		setBuffer({
-			id: uniqid(),
-			schoolName: "",
-			degree: "",
-			startDate: "",
-			endDate: "",
+			...defautlEducationBuffer,
 		});
 	};
 
