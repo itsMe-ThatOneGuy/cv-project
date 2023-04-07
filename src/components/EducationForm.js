@@ -7,6 +7,12 @@ const EducationForm = () => {
 	const [buffer, setBuffer] = useState({});
 	const [objArray, setObjArray] = useState([defaultSchoolData]);
 	const [displayForm, setDisplayForm] = useState(false);
+	const [formType, setFormType] = useState("");
+
+	const test = () => {
+		setDisplayForm(true);
+		console.log(displayForm);
+	};
 
 	useEffect(() => {
 		newBufferObj();
@@ -14,6 +20,11 @@ const EducationForm = () => {
 
 	const openForm = () => {
 		setDisplayForm(true);
+	};
+
+	const resetForm = () => {
+		setDisplayForm(false);
+		setFormType("");
 	};
 
 	const newBufferObj = () => {
@@ -36,9 +47,16 @@ const EducationForm = () => {
 		setObjArray(newArray);
 	};
 
-	const editOnClick = (key) => {
-		loadBuffer(key);
+	const addOnClick = () => {
 		openForm();
+		setFormType("add");
+	};
+
+	const editOnClick = (key) => {
+		if (displayForm === false) {
+			loadBuffer(key);
+			openForm();
+		}
 	};
 
 	const getSelectedId = (key) => {
@@ -65,7 +83,7 @@ const EducationForm = () => {
 			array = objArray.concat(buffer);
 		}
 		setObjArray(array);
-		setDisplayForm(false);
+		resetForm();
 		newBufferObj();
 	};
 
@@ -124,23 +142,25 @@ const EducationForm = () => {
 					</p>
 					<button type="submit">Save</button>
 				</form>
+				<button onClick={test}>TEST</button>
 				<Education
 					info={objArray}
 					editOnClick={editOnClick}
 					deleteOnclick={deleteOnclick}
 				/>
-				<button onClick={openForm}>Add More</button>
+				<button onClick={addOnClick}>Add More</button>
 			</div>
 		);
 	} else {
 		return (
 			<div>
+				<button onClick={test}>TEST</button>
 				<Education
 					info={objArray}
 					editOnClick={editOnClick}
 					deleteOnclick={deleteOnclick}
 				/>
-				<button onClick={openForm}>Add More</button>
+				<button onClick={addOnClick}>Add More</button>
 			</div>
 		);
 	}
