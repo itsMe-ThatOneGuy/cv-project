@@ -1,59 +1,100 @@
 import General from "./General";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import uniqid from "uniqid";
+import { defaultGeneralInfoData, defaultGeneralInfoBuffer } from "./Data";
 
 const GeneralForm = () => {
-	const [info, setInfo] = useState({
-		name: "Jone Doe",
-		phone: "(123) 123-1234",
-		email: "jonedoe123@gmail.com",
-		edit: false,
-	});
+	const [buffer, setBuffer] = useState({});
+	const [objArray, setObjArray] = useState([defaultGeneralInfoData]);
+	const [displayForm, setDisplayForm] = useState(false);
+	const [formType, setFormType] = useState(null);
 
-	const editOnClick = () => {
-		if (!info.edit) {
-			setInfo({
-				...info,
-				edit: true,
-			});
-		} else {
-			setInfo({
-				...info,
-				edit: false,
-			});
+	useEffect(() => {
+		newBufferObj();
+	}, []);
+
+	const openForm = () => {
+		setDisplayForm(true);
+	};
+
+	const resetForm = () => {
+		setDisplayForm(false);
+		setFormType(null);
+	};
+
+	const newBufferObj = () => {
+		setBuffer({
+			...defaultGeneralInfoBuffer,
+			id: uniqid(),
+		});
+	};
+
+	const getIndexOfObj = (key) => {
+		return objArray.findIndex((obj) => obj.id === key.id);
+	};
+
+	const deleteOnclick = (key) => {
+		const selected = getSelectedId(key);
+		const newArray = objArray.filter((obj) => obj.id !== selected.id);
+		setObjArray(newArray);
+	};
+
+	const addOnClick = () => {
+		openForm();
+		setFormType("add");
+	};
+
+	const editOnClick = (key) => {
+		if (displayForm === false) {
+			loadBuffer(key);
+			openForm();
+			setFormType("edit");
 		}
 	};
 
-	const handelChange = (e) => {
-		for (const [key] of Object.entries(info)) {
-			if (e.target.id === `${key}Input`) {
-				setInfo({
-					...info,
-					[key]: e.target.value,
-				});
-			}
-		}
+	const getSelectedId = (key) => {
+		return objArray.filter((x) => x.id === key)[0];
+	};
+
+	const loadBuffer = (key) => {
+		const selected = getSelectedId(key);
+		setBuffer({ ...selected });
+	};
+
+	const handleChange = (key, value) => {
+		setBuffer((buffer) => {
+			return { ...buffer, [key]: value };
+		});
 	};
 
 	const onSubmitForm = (e) => {
 		e.preventDefault();
-		setInfo({
-			...info,
-			edit: false,
-		});
+		let array = [...objArray];
+		if (objArray.some((obj) => obj.id === buffer.id)) {
+			array.splice(getIndexOfObj(buffer), 1, buffer);
+		} else {
+			array = objArray.concat(buffer);
+		}
+		setObjArray(array);
+		resetForm();
+		newBufferObj();
 	};
 
-	if (!info.edit) {
-		return <General info={info} func={editOnClick} />;
+	if (displayForm === true || objArray.length === 0) {
+		return <General info={buffer} editOnClick={editOnClick} />;
 	} else {
 		return (
 			<div>
-				<h2>General Info</h2>
+				<h2>Edit General Info</h2>
 				<form onSubmit={onSubmitForm}>
 					<p>
 						<label htmlFor="nameInput">Name:</label>
 						<input
-							onChange={handelChange}
-							value={info.name}
+							onChange={(e) =>
+								handleChange("name", e.target.value)
+							}
+							value={buffer.name}
+							name="name"
 							type="text"
 							id="nameInput"
 						/>
@@ -61,8 +102,11 @@ const GeneralForm = () => {
 					<p>
 						<label htmlFor="phoneInput">Phone:</label>
 						<input
-							onChange={handelChange}
-							value={info.phone}
+							onChange={(e) =>
+								handleChange("phone", e.target.value)
+							}
+							value={buffer.phone}
+							name="phone"
 							type="text"
 							id="phoneInput"
 						/>
@@ -70,8 +114,11 @@ const GeneralForm = () => {
 					<p>
 						<label htmlFor="emailInput">Email:</label>
 						<input
-							onChange={handelChange}
-							value={info.email}
+							onChange={(e) =>
+								handleChange("name", e.target.value)
+							}
+							value={buffer.email}
+							name="email"
 							type="text"
 							id="emailInput"
 						/>
