@@ -1,5 +1,12 @@
 import uniqid from "uniqid";
 
+const defaultGeneralInfoData = {
+	id: uniqid(),
+	name: "Jone Doe",
+	phone: "(123) 123-1234",
+	email: "jonedoe123@gmail.com",
+};
+
 const defaultSchoolData = {
 	id: uniqid(),
 	schoolName: "Test School",
@@ -15,6 +22,12 @@ const defaultEmploymentData = {
 	responsibilities: "Coding all the things",
 	startDate: "2020",
 	endDate: "2023",
+};
+
+const defaultGeneralInfoBuffer = {
+	name: "",
+	phone: "",
+	email: "",
 };
 
 const defautlEducationBuffer = {
@@ -37,4 +50,6 @@ export {
 	defaultEmploymentData,
 	defautlEducationBuffer,
 	defautlEmploymentBuffer,
+	defaultGeneralInfoData,
+	defaultGeneralInfoBuffer,
 };
