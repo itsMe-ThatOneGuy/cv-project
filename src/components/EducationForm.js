@@ -7,12 +7,7 @@ const EducationForm = () => {
 	const [buffer, setBuffer] = useState({});
 	const [objArray, setObjArray] = useState([defaultSchoolData]);
 	const [displayForm, setDisplayForm] = useState(false);
-	const [formType, setFormType] = useState("");
-
-	const test = () => {
-		setDisplayForm(true);
-		console.log(displayForm);
-	};
+	const [formType, setFormType] = useState(null);
 
 	useEffect(() => {
 		newBufferObj();
@@ -24,7 +19,7 @@ const EducationForm = () => {
 
 	const resetForm = () => {
 		setDisplayForm(false);
-		setFormType("");
+		setFormType(null);
 	};
 
 	const newBufferObj = () => {
@@ -56,6 +51,7 @@ const EducationForm = () => {
 		if (displayForm === false) {
 			loadBuffer(key);
 			openForm();
+			setFormType("edit");
 		}
 	};
 
@@ -90,7 +86,11 @@ const EducationForm = () => {
 	if (displayForm === true || objArray.length === 0) {
 		return (
 			<div>
-				<h3>Add New Education Info</h3>
+				{formType === "add" ? (
+					<h3>Add New Education Info</h3>
+				) : (
+					<h3>Edit Education Info</h3>
+				)}
 				<form onSubmit={onSubmitForm}>
 					<p>
 						<label htmlFor="schoolNameInput">School:</label>
@@ -142,7 +142,6 @@ const EducationForm = () => {
 					</p>
 					<button type="submit">Save</button>
 				</form>
-				<button onClick={test}>TEST</button>
 				<Education
 					info={objArray}
 					editOnClick={editOnClick}
@@ -154,7 +153,6 @@ const EducationForm = () => {
 	} else {
 		return (
 			<div>
-				<button onClick={test}>TEST</button>
 				<Education
 					info={objArray}
 					editOnClick={editOnClick}
